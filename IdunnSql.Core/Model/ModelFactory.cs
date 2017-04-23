@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace IdunnSql.Core
+namespace IdunnSql.Core.Model
 {
-    class ModelFactory
+    public class ModelFactory
     {
         public Principal Instantiate(string filename)
         {
