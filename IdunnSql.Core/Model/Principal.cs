@@ -9,9 +9,15 @@ namespace IdunnSql.Core.Model
 {
     public class Principal
     {
+        public Principal(string name, List<Database> databases)
+            : this (databases)
+        {
+            Name = name;
+        }
+
         public Principal(List<Database> databases)
         {
-            Databases = databases;
+            Databases = databases ?? new List<Database>();
         }
 
         public string Name { get; }

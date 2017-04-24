@@ -9,8 +9,6 @@ namespace IdunnSql.Core.Model
 {
     public class Permission
     {
-        private string name;
-
         public Permission(string name)
         {
             this.Name = name;
