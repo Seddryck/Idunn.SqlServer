@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using IdunnSql.Core.Model;
 using IdunnSql.Core.Template.StringTemplate;
 using System.IO;
+using IdunnSql.Core.Execution;
 
 namespace IdunnSql.Console
 {
@@ -14,10 +15,11 @@ namespace IdunnSql.Console
     {
         public static int Main(string[] args)
         {
-            var result = CommandLine.Parser.Default.ParseArguments<GenerateOptions>(args);
+            var result = CommandLine.Parser.Default.ParseArguments<GenerateOptions, ExecuteOptions>(args);
             var exitCode = result.MapResult(
-                o => { return Generate(o); },
-                e => { return 1; }
+                (GenerateOptions o) => { return Generate(o); },
+                (ExecuteOptions o) => { return Execute(o); },
+                error => { return 1; }
             );
 
             return exitCode;
@@ -32,10 +34,24 @@ namespace IdunnSql.Console
             //Render the template
             var engineFactory = new StringTemplateEngineFactory();
             var engine = engineFactory.Instantiate(options.Principal);
-            var text = engine.Execute(principal);
+            var text = engine.Execute(principal, true);
             //Persist the rendering
             File.WriteAllText(options.Destination, text);
 
+            return 0;
+        }
+
+        protected static int Execute(ExecuteOptions options)
+        {
+            System.Console.WriteLine($"Execute permissions' checks based on {options.Source}.");
+            //Parse the model
+            var factory = new ModelFactory();
+            var principal = factory.Instantiate(options.Source);
+            principal.Name = options.Principal;
+            //Eexcute the checks
+            var engine = new ExecutionEngine();
+            engine.Execute(principal);
+            
             return 0;
         }
     }
