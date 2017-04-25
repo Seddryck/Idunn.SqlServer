@@ -29,9 +29,9 @@ namespace IdunnSql.Core.Template.StringTemplate
             }
         }
 
-        public abstract string Execute(Principal principal);
+        public abstract string Execute(Principal principal, bool isSqlCmd);
 
-        protected virtual string Execute(string templateText, Principal principal)
+        protected virtual string Execute(string templateText, Principal principal, bool isSqlCmd)
         {
             var group = Initialize();
 
@@ -41,6 +41,7 @@ namespace IdunnSql.Core.Template.StringTemplate
             foreach (var dico in dicos)
             {
                 var template = new Antlr4.StringTemplate.Template(group, templateText);
+                template.Add("sqlcmd", isSqlCmd);
                 foreach (var key in dico.Keys)
                     template.Add(key, dico[key]);
 
