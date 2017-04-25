@@ -16,11 +16,11 @@ namespace IdunnSql.Core.Template.StringTemplate
             this.principalName = principalName;
         }
 
-        public override string Execute(Principal principal)
+        public override string Execute(Principal principal, bool isSqlCmd)
         {
             var template = ReadResource("impersonate.sql");
             principal.Name = principalName;
-            var text = Execute(template, principal);
+            var text = Execute(template, principal, isSqlCmd);
             return text;
         }
     }

@@ -14,11 +14,11 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
     {
         public class TestableStringTemplateEngine : StringTemplateEngine
         {
-            public new string Execute(string template, Principal principal)
+            public string Execute(string template, Principal principal)
             {
-                return base.Execute(template, principal);
+                return base.Execute(template, principal, true);
             }
-            public override string Execute(Principal principal)
+            public override string Execute(Principal principal, bool isSqlCmd)
             {
                 throw new NotImplementedException();
             }

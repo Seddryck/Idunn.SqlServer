@@ -1,6 +1,8 @@
-﻿:connect $database.server$
+﻿$if (sqlcmd)$
+:connect $database.server$
 use [$database.name$];
 go
+$endif$
 
 declare @Result tinyint;
 select @Result=HAS_PERMS_BY_NAME('$principal$', 'USER', 'IMPERSONATE')
@@ -10,12 +12,12 @@ begin
 	print '  Inconclusive: the user ' + CURRENT_USER + ' cannot impersonate $principal$'
 end
 else
-BEGIN
-	@Result=0
+begin
+	set @Result=0;
 	begin try
 		execute as user='$principal$';
 		set @Result=1;
-	end TRY
+	end try
     begin catch
 		if (error_number()=9048)
 		begin
@@ -31,7 +33,8 @@ BEGIN
 	begin
 		$securables:{securable |
 
-		select @Result=HAS_PERMS_BY_NAME('$securable.name$', '$securable.type$', '$securable.permission$')
+		select @Result=HAS_PERMS_BY_NAME('$securable.name$', '$securable.type$', '$securable.permission$');
+		select '$database.server$', '$database.name$','$securable.name$', '$securable.type$', '$securable.permission$', '$principal$', @Result;
 
 		if (@Result=1)
 		begin
@@ -47,5 +50,6 @@ BEGIN
 		}$
 	end
 end
+$if (sqlcmd)$
 go
-
+$endif$

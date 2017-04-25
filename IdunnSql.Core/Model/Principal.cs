@@ -20,7 +20,7 @@ namespace IdunnSql.Core.Model
             Databases = databases ?? new List<Database>();
         }
 
-        public string Name { get; internal set; }
+        public string Name { get; set; }
         public IReadOnlyCollection<Database> Databases { get; protected set; }
 
         
