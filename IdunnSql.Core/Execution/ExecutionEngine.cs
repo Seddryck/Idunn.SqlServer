@@ -4,6 +4,7 @@ using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,18 @@ namespace IdunnSql.Core.Execution
 {
     public class ExecutionEngine
     {
+        private readonly IEnumerable<TextWriter> outputs;
+
+        public ExecutionEngine()
+            : this (Enumerable.Repeat(Console.Out, 1))
+        {
+
+        }
+
+        public ExecutionEngine(IEnumerable<TextWriter> outputs)
+        {
+            this.outputs = outputs;
+        }
 
         public void Execute(Principal principal)
         {
@@ -27,9 +40,10 @@ namespace IdunnSql.Core.Execution
 
                 server.ConnectionContext.InfoMessage += new SqlInfoMessageEventHandler(CaptureMessage);
 
-                Console.Out.WriteLine("Start execution ...");
+                WriteMessage("Start execution ...");
                 server.ConnectionContext.ExecuteNonQuery(script);
-                Console.Out.WriteLine("End of execution.");
+                WriteMessage("End of execution.");
+                CloseOutputs();
             }
         }
 
@@ -48,9 +62,25 @@ namespace IdunnSql.Core.Execution
                 else
                     Console.ForegroundColor = ConsoleColor.White;
 
-                Console.Out.WriteLine(msg);
+                WriteMessage(msg);
+            }
+        }
+
+        protected void WriteMessage(string message)
+        {
+            foreach (var output in outputs)
+                output.WriteLine(message);
+        }
+
+        protected void CloseOutputs()
+        {
+            foreach (var output in outputs)
+            {
+                output.Flush();
+                output.Close();
             }
         }
         
+
     }
 }

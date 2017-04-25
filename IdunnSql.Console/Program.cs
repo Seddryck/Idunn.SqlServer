@@ -45,11 +45,12 @@ namespace IdunnSql.Console
         {
             System.Console.WriteLine($"Execute permissions' checks based on {options.Source}.");
             //Parse the model
-            var factory = new ModelFactory();
-            var principal = factory.Instantiate(options.Source);
+            var modelFactory = new ModelFactory();
+            var principal = modelFactory.Instantiate(options.Source);
             principal.Name = options.Principal;
             //Eexcute the checks
-            var engine = new ExecutionEngine();
+            var executionEngineFactory = new ExecutionEngineFactory();
+            var engine = executionEngineFactory.Instantiate(System.Console.Out, options.Output);
             engine.Execute(principal);
             
             return 0;
