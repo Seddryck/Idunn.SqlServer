@@ -14,7 +14,7 @@ namespace IdunnSql.Core.Model
     {
         public Principal Instantiate(string filename)
         {
-            if (File.Exists(filename))
+            if (!File.Exists(filename))
                 throw new ArgumentException(string.Format("No file has been found at the location '{0}'.", filename));
 
             using (var stream = File.OpenRead(filename))
