@@ -29,6 +29,22 @@ namespace IdunnSql.Testing.Acceptance
             var result = Program.Main(args.ToArray());
             Assert.That(result, Is.EqualTo(0));
         }
-        
+
+        [Test]
+        public void Main_GenerateWithImpersonate_Succesful()
+        {
+            var source = ResourceOnDisk.CreatePhysicalFile("Sample.xml", "IdunnSql.Testing.Acceptance.Resources.Sample.xml");
+            var destination = Path.ChangeExtension(source, ".impersonate.sql");
+
+            var args = new List<string>();
+            args.Add("generate");
+            args.Add($"--source={source}");
+            args.Add($"--destination={destination}");
+            args.Add($"--principal=Proxy_ETL");
+
+            var result = Program.Main(args.ToArray());
+            Assert.That(result, Is.EqualTo(0));
+        }
+
     }
 }
