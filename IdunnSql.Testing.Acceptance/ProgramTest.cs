@@ -47,6 +47,7 @@ namespace IdunnSql.Testing.Acceptance
         }
 
         [Test]
+        [Category("AdventureWorksDW2012")]
         public void Main_ExecuteWithCurrentUser_Succesful()
         {
             var source = ResourceOnDisk.CreatePhysicalFile("AdventureWorksDW2012.xml", "IdunnSql.Testing.Acceptance.Resources.AdventureWorksDW2012.xml");
@@ -60,6 +61,7 @@ namespace IdunnSql.Testing.Acceptance
         }
 
         [Test]
+        [Category("AdventureWorksDW2012")]
         public void Main_ExecuteWithImpersonation_Succesful()
         {
             var source = ResourceOnDisk.CreatePhysicalFile("AdventureWorksDW2012.xml", "IdunnSql.Testing.Acceptance.Resources.AdventureWorksDW2012.xml");
