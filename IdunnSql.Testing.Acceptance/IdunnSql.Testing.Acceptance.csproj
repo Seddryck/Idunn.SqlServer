@@ -60,7 +60,9 @@
       <Name>IdunnSql.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AdventureWorksDW2012.xml" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Sample.xml" />
   </ItemGroup>
