@@ -75,5 +75,21 @@ namespace IdunnSql.Testing.Acceptance
             Assert.That(result, Is.EqualTo(0));
         }
 
+        [Test]
+        [Category("AdventureWorksDW2012")]
+        public void Main_ExecuteWithOutput_Succesful()
+        {
+            var source = ResourceOnDisk.CreatePhysicalFile("AdventureWorksDW2012.xml", "IdunnSql.Testing.Acceptance.Resources.AdventureWorksDW2012.xml");
+            var output = Path.ChangeExtension(source, ".output.txt");
+
+            var args = new List<string>();
+            args.Add("execute");
+            args.Add($"--source={source}");
+            args.Add($"--output={output}");
+
+            var result = Program.Main(args.ToArray());
+            Assert.That(result, Is.EqualTo(0));
+        }
+
     }
 }
