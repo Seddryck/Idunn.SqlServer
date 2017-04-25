@@ -17,5 +17,9 @@ namespace IdunnSql.Console
         [Option('d', "destination", Required = true,
         HelpText = "Name of the file to be generated.")]
         public string Destination { get; set; }
+
+        [Option('p', "principal", Required = false,
+        HelpText = "Name of the principal to impersonate.")]
+        public string Principal { get; set; }
     }
 }

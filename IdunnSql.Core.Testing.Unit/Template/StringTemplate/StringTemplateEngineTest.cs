@@ -12,11 +12,23 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
     [TestFixture]
     public class StringTemplateEngineTest
     {
+        public class TestableStringTemplateEngine : StringTemplateEngine
+        {
+            public new string Execute(string template, Principal principal)
+            {
+                return base.Execute(template, principal);
+            }
+            public override string Execute(Principal principal)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         [Test]
         public void Execute_Principal_CorrectlyRendered()
         {
             var principal = new Principal("MyUser", new List<Database>() { new Database("db-001", "sql-001", null, null) });
-            var engine = new StringTemplateEngine();
+            var engine = new TestableStringTemplateEngine();
 
             var result = engine.Execute("Principal = $principal$", principal);
             Assert.That(result, Is.EqualTo("Principal = MyUser"));
@@ -32,7 +44,7 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
                 , new Database("db-002", "sql-001", null, null)
             };
             var principal = new Principal("MyUser", databases);
-            var engine = new StringTemplateEngine();
+            var engine = new TestableStringTemplateEngine();
 
             var result = engine.Execute("Database = $database.server$/$database.name$\r\n", principal);
             Assert.That(result, Is.EqualTo("Database = sql-001/db-001\r\nDatabase = sql-001/db-002\r\n"));
@@ -50,7 +62,7 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
                 }, null)
             };
             var principal = new Principal("MyUser", databases);
-            var engine = new StringTemplateEngine();
+            var engine = new TestableStringTemplateEngine();
 
             var result = engine.Execute("$securables : { securable|$securable.permission$ on $securable.type$::$securable.name$ for $principal$\r\n}$", principal);
             Assert.That(result, Is.EqualTo("SELECT on SCHEMA::dbo for MyUser\r\nINSERT on OBJECT::admin.Log for MyUser\r\n"));
