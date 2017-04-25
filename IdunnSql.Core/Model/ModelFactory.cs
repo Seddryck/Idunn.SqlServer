@@ -24,6 +24,7 @@ namespace IdunnSql.Core.Model
                 else
                     throw new NotImplementedException();
             }
+
         }
 
         protected Principal InstantiateFromXml(Stream stream)

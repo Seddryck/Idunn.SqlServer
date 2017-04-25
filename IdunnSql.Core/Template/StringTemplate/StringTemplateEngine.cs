@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IdunnSql.Core.Template.StringTemplate
 {
-    public abstract class StringTemplateEngine
+    public class StringTemplateEngine
     {
         protected TemplateGroup Initialize()
         {
@@ -29,9 +29,7 @@ namespace IdunnSql.Core.Template.StringTemplate
             }
         }
 
-        public abstract string Execute(Principal principal);
-
-        protected virtual string Execute(string templateText, Principal principal)
+        public string Execute(string templateText, Principal principal)
         {
             var group = Initialize();
 
