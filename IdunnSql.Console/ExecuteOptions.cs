@@ -17,5 +17,9 @@ namespace IdunnSql.Console
         [Option('p', "principal", Required = false,
         HelpText = "Name of the principal to impersonate.")]
         public string Principal { get; set; }
+
+        [Option('o', "output", Required = false,
+        HelpText = "Name of the file to redirect the output of the console.")]
+        public string Output { get; set; }
     }
 }
