@@ -10,9 +10,9 @@ using System.IO;
 
 namespace IdunnSql.Console
 {
-    class Program
+    public class Program
     {
-        static int Main(string[] args)
+        public static int Main(string[] args)
         {
             var result = CommandLine.Parser.Default.ParseArguments<GenerateOptions>(args);
             var exitCode = result.MapResult(
