@@ -12,7 +12,7 @@ namespace IdunnSql.Core.Model
         {
             Name = name;
             Type = type;
-            Permissions = permissions;
+            Permissions = permissions ?? new List<Permission>();
         }
 
         public string Type { get; set; }

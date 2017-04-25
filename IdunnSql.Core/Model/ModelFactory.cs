@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace IdunnSql.Core
+namespace IdunnSql.Core.Model
 {
-    class ModelFactory
+    public class ModelFactory
     {
         public Principal Instantiate(string filename)
         {
-            if (File.Exists(filename))
+            if (!File.Exists(filename))
                 throw new ArgumentException(string.Format("No file has been found at the location '{0}'.", filename));
 
             using (var stream = File.OpenRead(filename))

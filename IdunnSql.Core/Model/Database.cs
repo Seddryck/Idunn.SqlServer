@@ -13,17 +13,12 @@ namespace IdunnSql.Core.Model
         public IReadOnlyCollection<Securable> Securables { get; set; }
         public IReadOnlyCollection<Permission> Permissions { get; set; }
 
-        public Database()
-        {
-
-        }
-
         public Database(string name, string server, List<Securable> securables, List<Permission> permissions)
         {
             Name = name;
             Server = server;
-            Securables = securables;
-            Permissions = permissions;
+            Securables = securables ?? new List<Securable>();
+            Permissions = permissions ?? new List<Permission>();
         }
     }
 }
