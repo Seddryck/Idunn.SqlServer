@@ -47,8 +47,8 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
             var principal = new Principal("MyUser", databases);
             var engine = new TestableStringTemplateEngine();
 
-            var result = engine.Execute("Database = $database.server$/$database.name$\r\n", principal);
-            Assert.That(result, Is.EqualTo("Database = sql-001/db-001\r\nDatabase = sql-001/db-002\r\n"));
+            var result = engine.Execute("Database = $database.server$/$database.name$#", principal);
+            Assert.That(result, Is.EqualTo("Database = sql-001/db-001#Database = sql-001/db-002#"));
         }
 
         [Test]
