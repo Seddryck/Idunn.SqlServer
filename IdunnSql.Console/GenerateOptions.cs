@@ -14,6 +14,10 @@ namespace IdunnSql.Console
         HelpText = "Name of the file containing information about the permissions to check")]
         public string Source { get; set; }
 
+        [Option('t', "template", Required = false,
+        HelpText = "Name of the file containing the template")]
+        public string Template { get; set; }
+
         [Option('d', "destination", Required = true,
         HelpText = "Name of the file to be generated.")]
         public string Destination { get; set; }
