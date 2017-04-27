@@ -1,0 +1,30 @@
+﻿using IdunnSql.Core.Model;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IdunnSql.Core.Template.StringTemplate
+{
+    public class ExternalFileEngine : StringTemplateEngine
+    {
+        private readonly string filename;
+
+        public ExternalFileEngine(string filename)
+        {
+            this.filename = filename;
+        }
+
+        public override string Execute(Principal principal, bool isSqlCmd)
+        {
+            if (!File.Exists(filename))
+                throw new ArgumentException($"File {filename} not found!");
+
+            var template = File.ReadAllText(filename);
+            var text = Execute(template, principal, isSqlCmd);
+            return text;
+        }
+    }
+}
