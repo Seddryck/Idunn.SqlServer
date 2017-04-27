@@ -24,7 +24,7 @@ namespace IdunnSql.Core.Template.StringTemplate
                     return new ImpersonateEngine(principal);
             }
             else
-                return new ExternalFileEngine(principal);
+                return new ExternalFileEngine(filename);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace IdunnSql.Console
             //Parse the model
             var factory = new ModelFactory();
             var principal = factory.Instantiate(options.Source);
+            principal.Name = options.Principal;
             //Render the template
             var engineFactory = new StringTemplateEngineFactory();
             var engine = engineFactory.Instantiate(options.Principal, options.Template);
