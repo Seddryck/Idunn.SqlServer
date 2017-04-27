@@ -66,5 +66,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Sample.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\MarkdownTemplate.md" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

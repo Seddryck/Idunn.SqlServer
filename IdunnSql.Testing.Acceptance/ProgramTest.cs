@@ -47,6 +47,24 @@ namespace IdunnSql.Testing.Acceptance
         }
 
         [Test]
+        public void Main_GenerateExternalTemplate_Succesful()
+        {
+            var source = ResourceOnDisk.CreatePhysicalFile("Sample.xml", "IdunnSql.Testing.Acceptance.Resources.Sample.xml");
+            var template = ResourceOnDisk.CreatePhysicalFile("MarkdownTemplate.md", "IdunnSql.Testing.Acceptance.Resources.MarkdownTemplate.md");
+            var destination = Path.ChangeExtension(source, ".output.md");
+
+            var args = new List<string>();
+            args.Add("generate");
+            args.Add($"--source={source}");
+            args.Add($"--destination={destination}");
+            args.Add($"--template={template}");
+            args.Add($"--principal=Proxy_ETL");
+
+            var result = Program.Main(args.ToArray());
+            Assert.That(result, Is.EqualTo(0));
+        }
+
+        [Test]
         [Category("AdventureWorksDW2012")]
         public void Main_ExecuteWithCurrentUser_Succesful()
         {
