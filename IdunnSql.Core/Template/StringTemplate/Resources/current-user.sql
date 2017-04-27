@@ -1,10 +1,4 @@
-﻿$if (sqlcmd)$
-:connect $database.server$
-use [$database.name$];
-go
-$endif$
-
-declare @Result tinyint;
+﻿declare @Result tinyint;
 $securables:{securable |
 select  @Result=HAS_PERMS_BY_NAME('$securable.name$', '$securable.type$', '$securable.permission$')
 select '$database.server$', '$database.name$','$securable.name$', '$securable.type$', '$securable.permission$', CURRENT_USER, @Result;
@@ -19,6 +13,4 @@ begin
 end
 
 }$
-$if (sqlcmd)$
-go
-$endif$
+

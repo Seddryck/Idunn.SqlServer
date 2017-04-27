@@ -36,7 +36,7 @@ namespace IdunnSql.Core.Execution
 
                 var factory = new StringTemplateEngineFactory();
                 var engine = factory.Instantiate(principal.Name);
-                var script = engine.Execute(principal, false);
+                var script = engine.Execute(principal);
 
                 server.ConnectionContext.InfoMessage += new SqlInfoMessageEventHandler(CaptureMessage);
 

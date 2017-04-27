@@ -17,13 +17,13 @@ namespace IdunnSql.Core.Template.StringTemplate
             this.filename = filename;
         }
 
-        public override string Execute(Principal principal, bool isSqlCmd)
+        public override string Execute(Principal principal)
         {
             if (!File.Exists(filename))
                 throw new ArgumentException($"File {filename} not found!");
 
             var template = File.ReadAllText(filename);
-            var text = Execute(template, principal, isSqlCmd);
+            var text = Execute(template, principal);
             return text;
         }
     }

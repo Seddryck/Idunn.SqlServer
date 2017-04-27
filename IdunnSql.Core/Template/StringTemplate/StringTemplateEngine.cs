@@ -12,6 +12,8 @@ namespace IdunnSql.Core.Template.StringTemplate
 {
     public abstract class StringTemplateEngine
     {
+        public const string RootTemplateName = "root";
+
         protected TemplateGroup Initialize()
         {
             var group = new TemplateGroup('$', '$');
@@ -29,19 +31,27 @@ namespace IdunnSql.Core.Template.StringTemplate
             }
         }
 
-        public abstract string Execute(Principal principal, bool isSqlCmd);
+        public abstract string Execute(Principal principal);
 
-        protected virtual string Execute(string templateText, Principal principal, bool isSqlCmd)
+        protected virtual string Execute(string templateText, Principal principal)
+        {
+            var dico = new Dictionary<string, string>();
+            dico.Add(RootTemplateName, templateText);
+            return Execute(dico, principal);
+        }
+
+        protected virtual string Execute(Dictionary<string, string> templateTexts, Principal principal)
         {
             var group = Initialize();
+            foreach (var templateName in templateTexts.Keys)
+                group.DefineTemplate(templateName, templateTexts[templateName], new[] { "principal", "database", "securables" });
 
             var sb = new StringBuilder();
             var dicos = AssignVariables(principal);
 
             foreach (var dico in dicos)
             {
-                var template = new Antlr4.StringTemplate.Template(group, templateText);
-                template.Add("sqlcmd", isSqlCmd);
+                var template = group.GetInstanceOf(RootTemplateName);
                 foreach (var key in dico.Keys)
                     template.Add(key, dico[key]);
 

@@ -34,8 +34,8 @@ namespace IdunnSql.Console
             principal.Name = options.Principal;
             //Render the template
             var engineFactory = new StringTemplateEngineFactory();
-            var engine = engineFactory.Instantiate(options.Principal, options.Template);
-            var text = engine.Execute(principal, true);
+            var engine = engineFactory.Instantiate(options.Principal, true, options.Template);
+            var text = engine.Execute(principal);
             //Persist the rendering
             File.WriteAllText(options.Destination, text);
 

@@ -11,17 +11,25 @@ namespace IdunnSql.Core.Template.StringTemplate
 
         public StringTemplateEngine Instantiate(string principal)
         {
-            return Instantiate(principal, string.Empty);
+            return Instantiate(principal, false, string.Empty);
         }
 
-        public StringTemplateEngine Instantiate(string principal, string filename)
+        public StringTemplateEngine Instantiate(string principal, bool isSqlCmd, string filename)
         {
             if (string.IsNullOrEmpty(filename))
             {
                 if (string.IsNullOrEmpty(principal))
-                    return new CurrentUserEngine();
+                    if (isSqlCmd)
+                        return new ConnectUseCurrentUserEngine();
+                    else
+                        return new CurrentUserEngine();
                 else
-                    return new ImpersonateEngine(principal);
+                {
+                    if (isSqlCmd)
+                        return new ConnectUseImpersonateEngine();
+                    else
+                        return new ImpersonateEngine();
+                }
             }
             else
                 return new ExternalFileEngine(filename);

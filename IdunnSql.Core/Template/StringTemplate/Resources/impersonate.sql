@@ -1,10 +1,4 @@
-﻿$if (sqlcmd)$
-:connect $database.server$
-use [$database.name$];
-go
-$endif$
-
-declare @Result tinyint;
+﻿declare @Result tinyint;
 select @Result=HAS_PERMS_BY_NAME('$principal$', 'USER', 'IMPERSONATE')
 
 if (@Result<>1)
@@ -50,6 +44,4 @@ begin
 		}$
 	end
 end
-$if (sqlcmd)$
-go
-$endif$
+

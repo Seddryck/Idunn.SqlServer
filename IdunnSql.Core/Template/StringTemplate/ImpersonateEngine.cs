@@ -9,18 +9,10 @@ namespace IdunnSql.Core.Template.StringTemplate
 {
     public class ImpersonateEngine : StringTemplateEngine
     {
-        private readonly string principalName;
-
-        public ImpersonateEngine(string principalName)
-        {
-            this.principalName = principalName;
-        }
-
-        public override string Execute(Principal principal, bool isSqlCmd)
+        public override string Execute(Principal principal)
         {
             var template = ReadResource("impersonate.sql");
-            principal.Name = principalName;
-            var text = Execute(template, principal, isSqlCmd);
+            var text = Execute(template, principal);
             return text;
         }
     }
