@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<idunn>
+  <principal name="ExecuteDwh">
+    <database server="sql-001" name="db-001">
+      <permission name="CONNECT"/>
+      <securable type="schema" name="dbo">
+        <permission name="SELECT"/>
+        <permission name="UPDATE"/>
+      </securable>
+      <securable type="schema" name="admin">
+        <permission name="INSERT"/>
+      </securable>
+    </database>
+    <database server="sql-001" name="db-002">
+      <securable type="table" name="dbo.Results">
+        <permission name="SELECT"/>
+      </securable>
+      <securable type="procedure" name="dbo.Calculate">
+        <permission name="EXECUTE"/>
+      </securable>
+    </database>
+  </principal>
+  <principal name="Logger">
+    <database server="sql-001" name="db-002">
+      <securable type="procedure" name="dbo.WriteLog">
+        <permission name="EXECUTE"/>
+      </securable>
+    </database>
+  </principal>
+</idunn>

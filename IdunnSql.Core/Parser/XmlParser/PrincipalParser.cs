@@ -20,8 +20,10 @@ namespace IdunnSql.Core.Parser.XmlParser
             if (node.Name != "principal")
                 throw new ArgumentException();
 
+            var name = node.Attributes["name"]?.Value;
+
             var databases = ParseChildren<Database>(node, "database");
-            var principal = new Principal(databases);
+            var principal = new Principal(name, databases);
             return principal;
 
         }

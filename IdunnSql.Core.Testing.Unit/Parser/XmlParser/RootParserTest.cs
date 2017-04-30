@@ -110,5 +110,25 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
                 Assert.That(securable.Permissions.Any(s => s.Name == "UPDATE"));
             }
         }
+
+        [Test]
+        public void Parse_ValidXmlWithMultiplePrincipals_CorrectlyPrincipals()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream("IdunnSql.Core.Testing.Unit.Parser.XmlParser.Resources.Multiple.xml"))
+            {
+                var factory = new Core.Parser.XmlParser.ParserFactory();
+                factory.Initialize();
+
+                var parser = new Core.Parser.XmlParser.RootParser(factory);
+                var principals = parser.Parse(stream);
+
+                Assert.That(principals, Is.Not.Null);
+                Assert.That(principals, Has.Count.EqualTo(2));
+                Assert.That(principals.Any(p => p.Name == "ExecuteDwh"));
+                Assert.That(principals.Any(p => p.Name == "Logger"));
+                Assert.That(principals.All(p => p.Databases.Count>=1));
+            }
+        }
     }
 }
