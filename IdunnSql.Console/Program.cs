@@ -30,12 +30,15 @@ namespace IdunnSql.Console
             System.Console.WriteLine($"Generating file {options.Destination} based on {options.Source}.");
             //Parse the model
             var factory = new ModelFactory();
-            var principal = factory.Instantiate(options.Source);
-            principal.Name = options.Principal;
+            var principals = factory.Instantiate(options.Source);
+            if (principals.Count() > 1 && !string.IsNullOrEmpty(options.Principal))
+                throw new ArgumentException($"The file {options.Source} contains more than one principal. You cannot specify the principal on the command line arguments.");
+            else
+                principals.ElementAt(0).Name = options.Principal;
             //Render the template
             var engineFactory = new StringTemplateEngineFactory();
             var engine = engineFactory.Instantiate(options.Principal, true, options.Template);
-            var text = engine.Execute(principal);
+            var text = engine.Execute(principals);
             //Persist the rendering
             File.WriteAllText(options.Destination, text);
 
@@ -47,12 +50,15 @@ namespace IdunnSql.Console
             System.Console.WriteLine($"Execute permissions' checks based on {options.Source}.");
             //Parse the model
             var modelFactory = new ModelFactory();
-            var principal = modelFactory.Instantiate(options.Source);
-            principal.Name = options.Principal;
+            var principals = modelFactory.Instantiate(options.Source);
+            if (principals.Count() > 1 && !string.IsNullOrEmpty(options.Principal))
+                throw new ArgumentException($"The file {options.Source} contains more than one principal. You cannot specify the principal on the command line arguments.");
+            else
+                principals.ElementAt(0).Name = options.Principal;
             //Eexcute the checks
             var executionEngineFactory = new ExecutionEngineFactory();
             var engine = executionEngineFactory.Instantiate(System.Console.Out, options.Output);
-            engine.Execute(principal);
+            engine.Execute(principals);
             
             return 0;
         }

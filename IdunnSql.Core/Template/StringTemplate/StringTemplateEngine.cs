@@ -31,23 +31,23 @@ namespace IdunnSql.Core.Template.StringTemplate
             }
         }
 
-        public abstract string Execute(Principal principal);
+        public abstract string Execute(IEnumerable<Principal> principals);
 
-        protected virtual string Execute(string templateText, Principal principal)
+        protected virtual string Execute(string templateText, IEnumerable<Principal> principals)
         {
             var dico = new Dictionary<string, string>();
             dico.Add(RootTemplateName, templateText);
-            return Execute(dico, principal);
+            return Execute(dico, principals);
         }
 
-        protected virtual string Execute(Dictionary<string, string> templateTexts, Principal principal)
+        protected virtual string Execute(Dictionary<string, string> templateTexts, IEnumerable<Principal> principals)
         {
             var group = Initialize();
             foreach (var templateName in templateTexts.Keys)
                 group.DefineTemplate(templateName, templateTexts[templateName], new[] { "principal", "database", "securables" });
 
             var sb = new StringBuilder();
-            var dicos = AssignVariables(principal);
+            var dicos = AssignVariables(principals);
 
             foreach (var dico in dicos)
             {
@@ -62,28 +62,30 @@ namespace IdunnSql.Core.Template.StringTemplate
             return sb.ToString();
         }
 
-        protected IEnumerable<Dictionary<string, object>> AssignVariables(Principal principal)
+        protected IEnumerable<Dictionary<string, object>> AssignVariables(IEnumerable<Principal> principals)
         {
-            var principalDto = principal.Name;
-            foreach (var database in principal.Databases)
-            {
-                var databaseDto = new { Name = database.Name, Server = database.Server };
-                var securablesDto = new List<object>();
-                foreach (var permission in database.Permissions)
-                    securablesDto.Add(new { Type = "DATABASE", Name = database.Name, Permission = permission.Name });
+            foreach (var principal in principals)
+            { 
+                var principalDto = principal.Name;
+                foreach (var database in principal.Databases)
+                {
+                    var databaseDto = new { Name = database.Name, Server = database.Server };
+                    var securablesDto = new List<object>();
+                    foreach (var permission in database.Permissions)
+                        securablesDto.Add(new { Type = "DATABASE", Name = database.Name, Permission = permission.Name });
 
-                foreach (var securable in database.Securables)
-                    foreach (var permission in securable.Permissions)
-                        securablesDto.Add(new { Type = securable.Type, Name = securable.Name, Permission = permission.Name });
+                    foreach (var securable in database.Securables)
+                        foreach (var permission in securable.Permissions)
+                            securablesDto.Add(new { Type = securable.Type, Name = securable.Name, Permission = permission.Name });
 
-                var dico = new Dictionary<string, object>();
-                dico.Add("principal", principalDto);
-                dico.Add("database", databaseDto);
-                dico.Add("securables", securablesDto);
+                    var dico = new Dictionary<string, object>();
+                    dico.Add("principal", principalDto);
+                    dico.Add("database", databaseDto);
+                    dico.Add("securables", securablesDto);
 
-                yield return dico;
+                    yield return dico;
+                }
             }
         }
-
     }
 }

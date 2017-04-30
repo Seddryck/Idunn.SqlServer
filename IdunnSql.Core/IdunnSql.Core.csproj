@@ -85,7 +85,7 @@
     <Compile Include="Model\Principal.cs" />
     <Compile Include="Parser\XmlParser\AbstractParser.cs" />
     <Compile Include="Parser\XmlParser\IParser.cs" />
-    <Compile Include="Parser\XmlParser\Parser.cs" />
+    <Compile Include="Parser\XmlParser\RootParser.cs" />
     <Compile Include="Parser\XmlParser\ParserFactory.cs" />
     <Compile Include="Parser\XmlParser\PermissionParser.cs" />
     <Compile Include="Parser\XmlParser\SecurableParser.cs" />

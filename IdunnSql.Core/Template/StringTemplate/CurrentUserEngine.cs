@@ -9,11 +9,11 @@ namespace IdunnSql.Core.Template.StringTemplate
 {
     public class CurrentUserEngine : StringTemplateEngine
     {
-        public override string Execute(Principal principal)
+        public override string Execute(IEnumerable<Principal> principals)
         {
             var template = ReadResource("current-user.sql");
             
-            var text = Execute(template, principal);
+            var text = Execute(template, principals);
             return text;
         }
         

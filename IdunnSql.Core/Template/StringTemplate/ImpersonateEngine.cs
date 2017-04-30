@@ -9,10 +9,10 @@ namespace IdunnSql.Core.Template.StringTemplate
 {
     public class ImpersonateEngine : StringTemplateEngine
     {
-        public override string Execute(Principal principal)
+        public override string Execute(IEnumerable<Principal> principals)
         {
             var template = ReadResource("impersonate.sql");
-            var text = Execute(template, principal);
+            var text = Execute(template, principals);
             return text;
         }
     }

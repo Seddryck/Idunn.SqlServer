@@ -16,7 +16,7 @@ namespace IdunnSql.Core.Execution
         private readonly IEnumerable<TextWriter> outputs;
 
         public ExecutionEngine()
-            : this (Enumerable.Repeat(Console.Out, 1))
+            : this(Enumerable.Repeat(Console.Out, 1))
         {
 
         }
@@ -26,24 +26,27 @@ namespace IdunnSql.Core.Execution
             this.outputs = outputs;
         }
 
-        public void Execute(Principal principal)
+        public void Execute(IEnumerable<Principal> principals)
         {
-            foreach (var database in principal.Databases)
+            foreach (var principal in principals)
             {
-                var server = new Server();
-                var connectionString = $"Server={database.Server};Initial Catalog={database.Name};Persist Security Info=False;Integrated Security=sspi;";
-                server.ConnectionContext.ConnectionString = connectionString;
+                foreach (var database in principal.Databases)
+                {
+                    var server = new Server();
+                    var connectionString = $"Server={database.Server};Initial Catalog={database.Name};Persist Security Info=False;Integrated Security=sspi;";
+                    server.ConnectionContext.ConnectionString = connectionString;
 
-                var factory = new StringTemplateEngineFactory();
-                var engine = factory.Instantiate(principal.Name);
-                var script = engine.Execute(principal);
+                    var factory = new StringTemplateEngineFactory();
+                    var engine = factory.Instantiate(principal.Name);
+                    var script = engine.Execute(Enumerable.Repeat(principal,1));
 
-                server.ConnectionContext.InfoMessage += new SqlInfoMessageEventHandler(CaptureMessage);
+                    server.ConnectionContext.InfoMessage += new SqlInfoMessageEventHandler(CaptureMessage);
 
-                WriteMessage("Start execution ...");
-                server.ConnectionContext.ExecuteNonQuery(script);
-                WriteMessage("End of execution.");
-                CloseOutputs();
+                    WriteMessage("Start execution ...");
+                    server.ConnectionContext.ExecuteNonQuery(script);
+                    WriteMessage("End of execution.");
+                    CloseOutputs();
+                }
             }
         }
 
@@ -80,7 +83,7 @@ namespace IdunnSql.Core.Execution
                 output.Close();
             }
         }
-        
+
 
     }
 }

@@ -9,12 +9,12 @@ namespace IdunnSql.Core.Template.StringTemplate
 {
     public class ConnectUseCurrentUserEngine : StringTemplateEngine
     {
-        public override string Execute(Principal principal)
+        public override string Execute(IEnumerable<Principal> principals)
         {
             var dico = new Dictionary<string, string>();
             dico.Add(RootTemplateName, ReadResource("connect-use-current-user.sql"));
             dico.Add("current_user", ReadResource("current-user.sql"));
-            var text = Execute(dico, principal);
+            var text = Execute(dico, principals);
             return text;
         }
     }

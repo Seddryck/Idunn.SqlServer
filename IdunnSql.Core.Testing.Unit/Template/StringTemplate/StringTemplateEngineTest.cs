@@ -14,12 +14,12 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
     {
         public class TestableStringTemplateEngine : StringTemplateEngine
         {
-            public new string Execute(string template, Principal principal)
+            public new string Execute(string template, IEnumerable<Principal> principals)
             {
-                return base.Execute(template, principal);
+                return base.Execute(template, principals);
             }
 
-            public override string Execute(Principal principal)
+            public override string Execute(IEnumerable<Principal> principals)
             {
                 throw new NotImplementedException();
             }
@@ -28,10 +28,10 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
         [Test]
         public void Execute_Principal_CorrectlyRendered()
         {
-            var principal = new Principal("MyUser", new List<Database>() { new Database("db-001", "sql-001", null, null) });
+            var principals = Enumerable.Repeat(new Principal("MyUser", new List<Database>() { new Database("db-001", "sql-001", null, null) }), 1);
             var engine = new TestableStringTemplateEngine();
 
-            var result = engine.Execute("Principal = $principal$", principal);
+            var result = engine.Execute("Principal = $principal$", principals);
             Assert.That(result, Is.EqualTo("Principal = MyUser"));
 
         }
@@ -44,10 +44,10 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
                 new Database("db-001", "sql-001", null, null)
                 , new Database("db-002", "sql-001", null, null)
             };
-            var principal = new Principal("MyUser", databases);
+            var principals = Enumerable.Repeat(new Principal("MyUser", databases),1);
             var engine = new TestableStringTemplateEngine();
 
-            var result = engine.Execute("Database = $database.server$/$database.name$#", principal);
+            var result = engine.Execute("Database = $database.server$/$database.name$#", principals);
             Assert.That(result, Is.EqualTo("Database = sql-001/db-001#Database = sql-001/db-002#"));
         }
 
@@ -62,10 +62,10 @@ namespace IdunnSql.Core.Testing.Unit.Template.StringTemplate
                     , new Securable("admin.Log", "OBJECT", new List<Permission>() { new Permission("INSERT") })
                 }, null)
             };
-            var principal = new Principal("MyUser", databases);
+            var principals = Enumerable.Repeat(new Principal("MyUser", databases), 1);
             var engine = new TestableStringTemplateEngine();
 
-            var result = engine.Execute("$securables : { securable|$securable.permission$ on $securable.type$::$securable.name$ for $principal$\r\n}$", principal);
+            var result = engine.Execute("$securables : { securable|$securable.permission$ on $securable.type$::$securable.name$ for $principal$\r\n}$", principals);
             Assert.That(result, Is.EqualTo("SELECT on SCHEMA::dbo for MyUser\r\nINSERT on OBJECT::admin.Log for MyUser\r\n"));
         }
     }

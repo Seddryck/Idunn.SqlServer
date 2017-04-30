@@ -23,9 +23,10 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
                 var factory = new Core.Parser.XmlParser.ParserFactory();
                 factory.Initialize();
 
-                var parser = new Core.Parser.XmlParser.Parser(factory);
-                var principal = parser.Parse(stream);
-                Assert.That(principal, Is.Not.Null);
+                var parser = new Core.Parser.XmlParser.RootParser(factory);
+                var principals = parser.Parse(stream);
+                Assert.That(principals, Is.Not.Null);
+                Assert.That(principals, Has.Count.EqualTo(1));
             }
         }
 
@@ -38,8 +39,8 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
                 var factory = new Core.Parser.XmlParser.ParserFactory();
                 factory.Initialize();
 
-                var parser = new Core.Parser.XmlParser.Parser(factory);
-                var principal = parser.Parse(stream);
+                var parser = new Core.Parser.XmlParser.RootParser(factory);
+                var principal = parser.Parse(stream).ElementAt(0);
 
                 Assert.That(principal.Databases, Is.Not.Null.And.Not.Empty);
                 Assert.That(principal.Databases, Has.Count.EqualTo(2));
@@ -58,8 +59,8 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
                 var factory = new Core.Parser.XmlParser.ParserFactory();
                 factory.Initialize();
 
-                var parser = new Core.Parser.XmlParser.Parser(factory);
-                var principal = parser.Parse(stream);
+                var parser = new Core.Parser.XmlParser.RootParser(factory);
+                var principal = parser.Parse(stream).ElementAt(0);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 Assert.That(db.Permissions, Is.Not.Null.And.Not.Empty);
@@ -77,8 +78,8 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
                 var factory = new Core.Parser.XmlParser.ParserFactory();
                 factory.Initialize();
 
-                var parser = new Core.Parser.XmlParser.Parser(factory);
-                var principal = parser.Parse(stream);
+                var parser = new Core.Parser.XmlParser.RootParser(factory);
+                var principal = parser.Parse(stream).ElementAt(0);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 Assert.That(db.Securables, Is.Not.Null.And.Not.Empty);
@@ -98,8 +99,8 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
                 var factory = new Core.Parser.XmlParser.ParserFactory();
                 factory.Initialize();
 
-                var parser = new Core.Parser.XmlParser.Parser(factory);
-                var principal = parser.Parse(stream);
+                var parser = new Core.Parser.XmlParser.RootParser(factory);
+                var principal = parser.Parse(stream).ElementAt(0);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 var securable = db.Securables.Single(s => s.Name == "dbo");

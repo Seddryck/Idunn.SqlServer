@@ -12,7 +12,7 @@ namespace IdunnSql.Core.Model
 {
     public class ModelFactory
     {
-        public Principal Instantiate(string filename)
+        public IEnumerable<Principal> Instantiate(string filename)
         {
             if (!File.Exists(filename))
                 throw new ArgumentException(string.Format("No file has been found at the location '{0}'.", filename));
@@ -26,12 +26,12 @@ namespace IdunnSql.Core.Model
             }
         }
 
-        protected Principal InstantiateFromXml(Stream stream)
+        protected IEnumerable<Principal> InstantiateFromXml(Stream stream)
         {
             var factory = new Parser.XmlParser.ParserFactory();
             factory.Initialize();
 
-            var parser = new Parser.XmlParser.Parser(factory);
+            var parser = new Parser.XmlParser.RootParser(factory);
             return parser.Parse(stream);
         }
     }
