@@ -20,7 +20,10 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("IdunnSql.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var parser = new Core.Parser.XmlParser.Parser();
+                var factory = new Core.Parser.XmlParser.ParserFactory();
+                factory.Initialize();
+
+                var parser = new Core.Parser.XmlParser.Parser(factory);
                 var principal = parser.Parse(stream);
                 Assert.That(principal, Is.Not.Null);
             }
@@ -32,7 +35,10 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("IdunnSql.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var parser = new Core.Parser.XmlParser.Parser();
+                var factory = new Core.Parser.XmlParser.ParserFactory();
+                factory.Initialize();
+
+                var parser = new Core.Parser.XmlParser.Parser(factory);
                 var principal = parser.Parse(stream);
 
                 Assert.That(principal.Databases, Is.Not.Null.And.Not.Empty);
@@ -49,7 +55,10 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("IdunnSql.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var parser = new Core.Parser.XmlParser.Parser();
+                var factory = new Core.Parser.XmlParser.ParserFactory();
+                factory.Initialize();
+
+                var parser = new Core.Parser.XmlParser.Parser(factory);
                 var principal = parser.Parse(stream);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
@@ -65,7 +74,10 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("IdunnSql.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var parser = new Core.Parser.XmlParser.Parser();
+                var factory = new Core.Parser.XmlParser.ParserFactory();
+                factory.Initialize();
+
+                var parser = new Core.Parser.XmlParser.Parser(factory);
                 var principal = parser.Parse(stream);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
@@ -83,7 +95,10 @@ namespace IdunnSql.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("IdunnSql.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var parser = new Core.Parser.XmlParser.Parser();
+                var factory = new Core.Parser.XmlParser.ParserFactory();
+                factory.Initialize();
+
+                var parser = new Core.Parser.XmlParser.Parser(factory);
                 var principal = parser.Parse(stream);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");

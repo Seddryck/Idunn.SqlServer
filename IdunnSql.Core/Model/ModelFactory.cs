@@ -28,7 +28,10 @@ namespace IdunnSql.Core.Model
 
         protected Principal InstantiateFromXml(Stream stream)
         {
-            var parser = new Parser.XmlParser.Parser();
+            var factory = new Parser.XmlParser.ParserFactory();
+            factory.Initialize();
+
+            var parser = new Parser.XmlParser.Parser(factory);
             return parser.Parse(stream);
         }
     }

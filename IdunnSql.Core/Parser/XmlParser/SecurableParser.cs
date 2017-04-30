@@ -8,9 +8,14 @@ using System.Xml;
 
 namespace IdunnSql.Core.Parser.XmlParser
 {
-    class SecurableParser
+    class SecurableParser : AbstractParser<Securable>
     {
-        public Securable Parse(XmlNode node)
+        public SecurableParser(ParserFactory factory)
+        :base(factory)
+        { 
+        }
+
+        public override Securable Parse(XmlNode node)
         {
             if (node.Name != "securable")
                 throw new ArgumentException();
@@ -18,12 +23,7 @@ namespace IdunnSql.Core.Parser.XmlParser
             var name = node.Attributes["name"]?.Value;
             var type = node.Attributes["type"]?.Value;
 
-            var permissions = new List<Permission>();
-            foreach (XmlNode child in node.ChildNodes)
-            {
-                var permissionParser = new PermissionParser();
-                permissions.Add(permissionParser.Parse(child));
-            }
+            var permissions = ParseChildren<Permission>(node, "permission");
 
             var securable = new Securable(name, type, permissions);
             return securable;

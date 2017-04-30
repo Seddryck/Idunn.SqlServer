@@ -8,21 +8,19 @@ using System.Xml;
 
 namespace IdunnSql.Core.Parser.XmlParser
 {
-    class PrincipalParser
+    class PrincipalParser : AbstractParser<Principal>
     {
-        public Principal Parse(XmlNode node)
+        public PrincipalParser(ParserFactory factory)
+        : base(factory)
+        {
+        }
+
+        public override Principal Parse(XmlNode node)
         {
             if (node.Name != "principal")
                 throw new ArgumentException();
 
-            
-
-            var databases = new List<Database>();
-            foreach (XmlNode child in node.ChildNodes)
-            {
-                var databaseParser = new DatabaseParser();
-                databases.Add(databaseParser.Parse(child));
-            }
+            var databases = ParseChildren<Database>(node, "database");
             var principal = new Principal(databases);
             return principal;
 

@@ -11,6 +11,13 @@ namespace IdunnSql.Core.Parser.XmlParser
 {
     public class Parser
     {
+        protected readonly ParserFactory factory;
+
+        public Parser(ParserFactory factory)
+        {
+            this.factory = factory;
+        }
+
         public Principal Parse(Stream stream)
         {
             using (var streamReader = new StreamReader(stream))
@@ -23,7 +30,7 @@ namespace IdunnSql.Core.Parser.XmlParser
 
                     var root = xmlDoc.FirstChild.NextSibling;
 
-                    var principalParser = new PrincipalParser();
+                    var principalParser = factory.Retrieve<Principal>();
                     var principal = principalParser.Parse(root);
                     return principal;
                 }

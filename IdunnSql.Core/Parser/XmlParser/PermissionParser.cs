@@ -8,9 +8,14 @@ using System.Xml;
 
 namespace IdunnSql.Core.Parser.XmlParser
 {
-    class PermissionParser
+    class PermissionParser : AbstractParser<Permission>
     {
-        public Permission Parse(XmlNode node)
+        public PermissionParser(ParserFactory factory)
+            : base(factory)
+        {
+        }
+
+        public override Permission Parse(XmlNode node)
         {
             if (node.Name != "permission")
                 throw new ArgumentException();
