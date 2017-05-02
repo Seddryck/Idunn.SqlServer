@@ -50,6 +50,7 @@ example:
 </principal>
 ```
 
+
 ## Console options
 
 Idunn.SqlServer.Console offers two options: ```execute``` and ```generate```
@@ -78,6 +79,8 @@ Idunn.SqlServer.Console.exe
   --template "c:\temp\template.md"
 ```
 This template must use the following variable ```$principals$```. This vriable contains all the principals with its property ```name``` and their respective ```databases``` with properties ```name``` and ```server```. bellow each database, you'll find an object ```securables``` with three properties: ```type```, ```name``` and ```permission```.
+
+The template must follow the conventions of StringTemplate [github](https://github.com/antlr/antlrcs) [docs](http://www.stringtemplate.org/) and variables are surrounded the dollar symbol ```$```.
 
 example:
 ```md
