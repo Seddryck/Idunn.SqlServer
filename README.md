@@ -3,6 +3,8 @@ Idunn.SqlServer is a software dedicated to check permissions and ensuring that a
 
 [![Build status](https://ci.appveyor.com/api/projects/status/erp2uy4c1a7dqbyk?svg=true)](https://ci.appveyor.com/project/Seddryck/idunnsql)
 ![Still maintained](https://img.shields.io/maintenance/yes/2017.svg)
+![nuget](https://img.shields.io/nuget/v/Idunn.SqlServer.svg) 
+![nuget pre](https://img.shields.io/nuget/vpre/Idunn.SqlServer.svg)
 [![licence badge]][licence]
 [![stars badge]][stars]
 
@@ -22,7 +24,7 @@ The permissions are defined in an xml file
 * for each ```database```, you can define the ```server``` and the ```name``` with a set of ```permission``` and another set of ```securable```
 * for each ```securable```, you'll have to define its name and its type (OBJECT, PROCEDURE, SCHEMA ...) and a set of ```permission```
 * for each ```permission```, you'll have to define the permission's name.
-
+ 
 example:
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -59,7 +61,9 @@ The argument  ```--destination``` lets you specify the file that will be generat
 
 The following command will generate a SQLCMD file with different connections to the databases and query to check the permissions. You can use this file in SSMS (don't forget to activate the SQLCMD mode). 
 ```
-Idunn.SqlServer.Console.exe generate --source "c:\temp\boo.xml" --destination "c:\temp\boo.sql"
+Idunn.SqlServer.Console.exe generate 
+  --source "c:\temp\boo.xml" 
+  --destination "c:\temp\boo.sql"
 ```
 
 If no name is defined for the unique principal, then Idunn.SqlServer will create a script not impersonating another principal. In other cases or if the argument ```principal``` is specified then the principal will be impersonated.
@@ -83,9 +87,7 @@ $principal.databases:{database |
 |----------------|----------------|----------------|
 $database.securables:{securable |
 | $securable.name$ | $securable.type$ | $securable.permission$ |  
-}$
-}$
-}$
+}$}$}$
 ```
 ### execute
 
@@ -93,8 +95,8 @@ This option uses the same parameters ```source``` and ```principal``` than the o
 
 The argument ```--output``` captures all the print events raised by SQL Server and redirect them to a text file.
 ```
-Idunn.SqlServer.Console.exe execute --source "c:\temp\boo.xml" --principal "COLUMBIA\\cedri" --output "c:\temp\result.txt"
+Idunn.SqlServer.Console.exe execute 
+  --source "c:\temp\boo.xml" 
+  --principal "COLUMBIA\\cedri" 
+  --output "c:\temp\result.txt"
 ```
-
-
-
