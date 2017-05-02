@@ -78,9 +78,9 @@ Idunn.SqlServer.Console.exe
   --destination "c:\temp\result.md" 
   --template "c:\temp\template.md"
 ```
-This template must use the following variable ```$principals$```. This vriable contains all the principals with its property ```name``` and their respective ```databases``` with properties ```name``` and ```server```. bellow each database, you'll find an object ```securables``` with three properties: ```type```, ```name``` and ```permission```.
+The template must follow the conventions of StringTemplate. More info on [github](https://github.com/antlr/antlrcs) or in [docs](http://www.stringtemplate.org/). The variables are surrounded by the dollar symbol ```$```.
 
-The template must follow the conventions of StringTemplate [github](https://github.com/antlr/antlrcs) [docs](http://www.stringtemplate.org/) and variables are surrounded the dollar symbol ```$```.
+This template must use the following variable ```$principals$```. This vriable contains all the principals with its property ```name``` and their respective ```databases``` with properties ```name``` and ```server```. bellow each database, you'll find an object ```securables``` with three properties: ```type```, ```name``` and ```permission```.
 
 example:
 ```md
