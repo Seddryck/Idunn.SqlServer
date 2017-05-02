@@ -9,10 +9,6 @@ new-item -Path $root\.nupkg -ItemType directory -force
 Copy-Item $root\Idunn.SqlServer.Console\bin\Debug\* $lib
 
 $version = $env:GitVersion_NuGetVersion
-if ($env:APPVEYOR_REPO_BRANCH -ne "master" -and $env:APPVEYOR_REPO_TAG)
-{
-    $version += '-pre'
-}
 Write-Host "Setting .nuspec version tag to $version"
 
 $content = (Get-Content $root\Idunn.SqlServer.nuspec -Encoding UTF8) 
