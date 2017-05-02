@@ -16,7 +16,7 @@ Idunn.SqlServer is a software dedicated to check permissions and ensuring that a
 
 ## How-to
 
-### Define the permissions to check
+ ### Define the permissions to check
 The permissions are defined in an xml file
 
 * the root element is named ```idunn``` and is followed by one or more ```principal```. If you only have one element principal the root node can be ignored.
@@ -61,7 +61,8 @@ The argument  ```--destination``` lets you specify the file that will be generat
 
 The following command will generate a SQLCMD file with different connections to the databases and query to check the permissions. You can use this file in SSMS (don't forget to activate the SQLCMD mode). 
 ```
-Idunn.SqlServer.Console.exe generate 
+Idunn.SqlServer.Console.exe 
+  generate 
   --source "c:\temp\boo.xml" 
   --destination "c:\temp\boo.sql"
 ```
@@ -70,7 +71,11 @@ If no name is defined for the unique principal, then Idunn.SqlServer will create
 
 If you wish, you can provide your own template to Idunn.SqlServer. You'll achieve this with parameter ```template```. 
 ```
-Idunn.SqlServer.Console.exe generate --source "c:\temp\boo.xml" --destination "c:\temp\result.md" --template "c:\temp\template.md"
+Idunn.SqlServer.Console.exe 
+  generate 
+  --source "c:\temp\boo.xml" 
+  --destination "c:\temp\result.md" 
+  --template "c:\temp\template.md"
 ```
 This template must use the following variable ```$principals$```. This vriable contains all the principals with its property ```name``` and their respective ```databases``` with properties ```name``` and ```server```. bellow each database, you'll find an object ```securables``` with three properties: ```type```, ```name``` and ```permission```.
 
@@ -95,7 +100,8 @@ This option uses the same parameters ```source``` and ```principal``` than the o
 
 The argument ```--output``` captures all the print events raised by SQL Server and redirect them to a text file.
 ```
-Idunn.SqlServer.Console.exe execute 
+Idunn.SqlServer.Console.exe 
+  execute 
   --source "c:\temp\boo.xml" 
   --principal "COLUMBIA\\cedri" 
   --output "c:\temp\result.txt"
