@@ -1,21 +1,21 @@
 ﻿declare @Result tinyint;
-select @Result=HAS_PERMS_BY_NAME('$principal$', 'USER', 'IMPERSONATE')
+select @Result=HAS_PERMS_BY_NAME('$principal.name$', 'USER', 'IMPERSONATE')
 
 if (@Result<>1)
 begin
-	print '  Inconclusive: the user ' + CURRENT_USER + ' cannot impersonate $principal$'
+	print '  Inconclusive: the user ' + CURRENT_USER + ' cannot impersonate $principal.name$'
 end
 else
 begin
 	set @Result=0;
 	begin try
-		execute as user='$principal$';
+		execute as user='$principal.name$';
 		set @Result=1;
 	end try
     begin catch
 		if (error_number()=9048)
 		begin
-			print '  Inconclusive: the user $principal$ doesn''t exit or cannot log to the database $database.name$ on $database.server$';
+			print '  Inconclusive: the user $principal.name$ doesn''t exit or cannot log to the database $database.name$ on $database.server$';
 		end
 		else
 		begin
@@ -28,15 +28,15 @@ begin
 		$securables:{securable |
 
 		select @Result=HAS_PERMS_BY_NAME('$securable.name$', '$securable.type$', '$securable.permission$');
-		select '$database.server$', '$database.name$','$securable.name$', '$securable.type$', '$securable.permission$', '$principal$', @Result;
+		select '$database.server$', '$database.name$','$securable.name$', '$securable.type$', '$securable.permission$', '$principal.name$', @Result;
 
 		if (@Result=1)
 		begin
-			print '  Success: the permission $securable.permission$ was granted on $securable.type$::$securable.name$ for principal $principal$'
+			print '  Success: the permission $securable.permission$ was granted on $securable.type$::$securable.name$ for principal $principal.name$'
 		end
 		else
 		begin
-			print '  Failure: the permission $securable.permission$ was NOT granted on $securable.type$::$securable.name$ for principal $principal$'
+			print '  Failure: the permission $securable.permission$ was NOT granted on $securable.type$::$securable.name$ for principal $principal.name$'
 		end
 
 		revert;

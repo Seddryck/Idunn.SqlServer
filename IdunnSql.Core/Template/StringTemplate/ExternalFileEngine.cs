@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IdunnSql.Core.Template.StringTemplate
 {
-    public class ExternalFileEngine : StringTemplateEngine
+    public class ExternalFileEngine : StringTemplateAllInOneEngine
     {
         private readonly string filename;
 

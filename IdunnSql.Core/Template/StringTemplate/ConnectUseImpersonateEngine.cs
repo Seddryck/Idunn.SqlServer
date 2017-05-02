@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IdunnSql.Core.Template.StringTemplate
 {
-    public class ConnectUseImpersonateEngine : StringTemplateEngine
+    public class ConnectUseImpersonateEngine : StringTemplateAllInOneEngine
     {
         public override string Execute(IEnumerable<Principal> principals)
         {

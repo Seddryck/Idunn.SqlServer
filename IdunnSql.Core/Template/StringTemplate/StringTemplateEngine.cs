@@ -43,11 +43,13 @@ namespace IdunnSql.Core.Template.StringTemplate
         protected virtual string Execute(Dictionary<string, string> templateTexts, IEnumerable<Principal> principals)
         {
             var group = Initialize();
+            var dicos = AssignVariables(principals);
+
             foreach (var templateName in templateTexts.Keys)
-                group.DefineTemplate(templateName, templateTexts[templateName], new[] { "principal", "database", "securables" });
+                group.DefineTemplate(templateName, templateTexts[templateName], dicos.ElementAt(0).Keys.ToArray());
 
             var sb = new StringBuilder();
-            var dicos = AssignVariables(principals);
+           
 
             foreach (var dico in dicos)
             {
@@ -62,30 +64,7 @@ namespace IdunnSql.Core.Template.StringTemplate
             return sb.ToString();
         }
 
-        protected IEnumerable<Dictionary<string, object>> AssignVariables(IEnumerable<Principal> principals)
-        {
-            foreach (var principal in principals)
-            { 
-                var principalDto = principal.Name;
-                foreach (var database in principal.Databases)
-                {
-                    var databaseDto = new { Name = database.Name, Server = database.Server };
-                    var securablesDto = new List<object>();
-                    foreach (var permission in database.Permissions)
-                        securablesDto.Add(new { Type = "DATABASE", Name = database.Name, Permission = permission.Name });
-
-                    foreach (var securable in database.Securables)
-                        foreach (var permission in securable.Permissions)
-                            securablesDto.Add(new { Type = securable.Type, Name = securable.Name, Permission = permission.Name });
-
-                    var dico = new Dictionary<string, object>();
-                    dico.Add("principal", principalDto);
-                    dico.Add("database", databaseDto);
-                    dico.Add("securables", securablesDto);
-
-                    yield return dico;
-                }
-            }
-        }
+        protected abstract IEnumerable<Dictionary<string, object>> AssignVariables(IEnumerable<Principal> principals);
+        
     }
 }

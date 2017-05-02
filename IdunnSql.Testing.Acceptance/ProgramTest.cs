@@ -76,6 +76,7 @@ namespace IdunnSql.Testing.Acceptance
 
             var result = Program.Main(args.ToArray());
             Assert.That(result, Is.EqualTo(0));
+
         }
 
         [Test]
@@ -107,6 +108,10 @@ namespace IdunnSql.Testing.Acceptance
 
             var result = Program.Main(args.ToArray());
             Assert.That(result, Is.EqualTo(0));
+
+            var expected = ResourceOnMemory.GetContent("IdunnSql.Testing.Acceptance.Resources.AdventureWorksDW2012.expected.txt");
+            var actual = File.ReadAllText(output);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
     }

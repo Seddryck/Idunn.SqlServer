@@ -1,7 +1,11 @@
-﻿:connect $database.server$
+﻿$principals:{principal |
+$principal.databases:{database |
+:connect $database.server$
 use [$database.name$];
 go
 
-$impersonate(principal, database, securables)$
+$impersonate(principal.name, database, database.securables)$
 
 go
+}$
+}$

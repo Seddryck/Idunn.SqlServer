@@ -1,12 +1,15 @@
-﻿# $principal$
-
+﻿$principals:{principal |
+# $principal.name$
+$principal.databases:{database |
 ## $database.server$
 
 ### $database.name$
 
 |     object     |      type      |   permission   |
 |----------------|----------------|----------------|
-$securables:{securable |
-| $securable.name$ | $securable.type$ | $securable.permission$ | $principal$ | 
+$database.securables:{securable |
+| $securable.name$ | $securable.type$ | $securable.permission$ |  
+}$
+}$
 }$
 
