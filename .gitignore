@@ -161,6 +161,8 @@ PublishScripts/
 # NuGet v3's project.json files produces more ignoreable files
 *.nuget.props
 *.nuget.targets
+#.package contains the temporary build for the packages
+.package/
 
 # Microsoft Azure Build Output
 csx/

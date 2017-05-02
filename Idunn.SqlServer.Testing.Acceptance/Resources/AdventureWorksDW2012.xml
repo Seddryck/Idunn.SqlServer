@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<principal>
+  <database server=".\sql2016" name="AdventureWorksDW2012">
+    <permission name="CONNECT"/>
+    <securable type="schema" name="dbo">
+      <permission name="SELECT"/>
+      <permission name="UPDATE"/>
+    </securable>
+  </database>
+</principal>
