@@ -9,7 +9,7 @@ new-item -Path $root\.nupkg -ItemType directory -force
 Copy-Item $root\Idunn.SqlServer.Console\bin\Debug\* $lib
 
 $version = $env:GitVersion_NuGetVersion
-if ($env:APPVEYOR_REPO_BRANCH -ne "master")
+if ($env:APPVEYOR_REPO_BRANCH -ne "master" -and $env:APPVEYOR_REPO_TAG)
 {
     $version += '-pre'
 }
