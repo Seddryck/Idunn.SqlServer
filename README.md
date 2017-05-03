@@ -1,5 +1,5 @@
 # Idunn.SqlServer
-Idunn.SqlServer is a software dedicated to check permissions and ensuring that a set of SQL permissions are effectively granted on different databases.
+Idunn.SqlServer is a software dedicated to check permissions and ensuring that a set of SQL permissions are effectively granted on different databases
 
 [![Build status](https://ci.appveyor.com/api/projects/status/erp2uy4c1a7dqbyk?svg=true)](https://ci.appveyor.com/project/Seddryck/idunnsql)
 ![Still maintained](https://img.shields.io/maintenance/yes/2017.svg)
@@ -16,8 +16,11 @@ Idunn.SqlServer is a software dedicated to check permissions and ensuring that a
 
 ## How-to
 
- ### Define the permissions to check
-The permissions are defined in an xml file
+### Define the permissions to check
+
+### Xml file
+ 
+The permissions are defined in an file with an extension ```.xml```
 
 * the root element is named ```idunn``` and is followed by one or more ```principal```. If you only have one element principal the root node can be ignored.
 * for each ```principal```, you can define its name and one to many ```database``` 
@@ -49,6 +52,43 @@ example:
   </database>
 </principal>
 ```
+
+### YAML file
+
+The permissions are defined in an file with an extension ```.yml``` or ```.yaml``` and the structure is more or less the same.
+
+The root node must be ```principal``` (single) or ```principals``` (multiples). All the distinct nodes can be used at singular or plural (respectively expecting a unique value or a list of values).
+
+example:
+
+```yml
+principal:
+  databases:
+    - server: sql-001
+      name: db-001
+      permissions:
+        - CONNECT
+      securables:
+        - type: schema
+          name: dbo
+          permissions:
+            - SELECT
+            - UPDATE
+        - type: schema
+          name: admin
+          permission: INSERT
+    - server: sql-001
+      name: db-002
+      securables:
+        - type: table
+          name: dbo.Results
+          permissions:
+            - SELECT
+        - type: procedure
+          name: dbo.Calculate
+          permission: EXECUTE
+```
+
 
 
 ## Console options
