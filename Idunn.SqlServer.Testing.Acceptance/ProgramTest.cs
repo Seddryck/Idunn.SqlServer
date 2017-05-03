@@ -47,11 +47,13 @@ namespace Idunn.SqlServer.Testing.Acceptance
         }
 
         [Test]
-        public void Main_GenerateExternalTemplate_Succesful()
+        [TestCase("xml")]
+        [TestCase("yml")]
+        public void Main_GenerateExternalTemplate_Succesful(string extension)
         {
-            var source = ResourceOnDisk.CreatePhysicalFile("Sample.xml", "Idunn.SqlServer.Testing.Acceptance.Resources.Sample.xml");
+            var source = ResourceOnDisk.CreatePhysicalFile($"Sample.{extension}", $"Idunn.SqlServer.Testing.Acceptance.Resources.Sample.{extension}");
             var template = ResourceOnDisk.CreatePhysicalFile("MarkdownTemplate.md", "Idunn.SqlServer.Testing.Acceptance.Resources.MarkdownTemplate.md");
-            var destination = Path.ChangeExtension(source, ".output.md");
+            var destination = Path.ChangeExtension(source, $".{extension}.output.md");
 
             var args = new List<string>();
             args.Add("generate");
@@ -62,6 +64,10 @@ namespace Idunn.SqlServer.Testing.Acceptance
 
             var result = Program.Main(args.ToArray());
             Assert.That(result, Is.EqualTo(0));
+
+            var expected = ResourceOnMemory.GetContent("Idunn.SqlServer.Testing.Acceptance.Resources.Sample.expected.md");
+            var actual = File.ReadAllText(destination);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -96,10 +102,12 @@ namespace Idunn.SqlServer.Testing.Acceptance
 
         [Test]
         [Category("AdventureWorksDW2012")]
-        public void Main_ExecuteWithOutput_Succesful()
+        [TestCase("xml")]
+        [TestCase("yml")]
+        public void Main_ExecuteWithOutput_Succesful(string extension)
         {
-            var source = ResourceOnDisk.CreatePhysicalFile("AdventureWorksDW2012.xml", "Idunn.SqlServer.Testing.Acceptance.Resources.AdventureWorksDW2012.xml");
-            var output = Path.ChangeExtension(source, ".output.txt");
+            var source = ResourceOnDisk.CreatePhysicalFile($"AdventureWorksDW2012.{extension}", $"Idunn.SqlServer.Testing.Acceptance.Resources.AdventureWorksDW2012.{extension}");
+            var output = Path.ChangeExtension(source, $"{extension}.output.txt");
 
             var args = new List<string>();
             args.Add("execute");

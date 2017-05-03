@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\Sample.expected.md" />
+    <EmbeddedResource Include="Resources\Sample.yml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Idunn.SqlServer.Console\Idunn.SqlServer.Console.csproj">
@@ -72,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AdventureWorksDW2012.expected.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AdventureWorksDW2012.yml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
