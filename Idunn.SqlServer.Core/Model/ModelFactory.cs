@@ -21,6 +21,8 @@ namespace Idunn.SqlServer.Core.Model
             {
                 if (Path.GetExtension(filename) == ".xml")
                     return InstantiateFromXml(stream);
+                if (Path.GetExtension(filename) == ".yml" || Path.GetExtension(filename) == ".yaml")
+                    return InstantiateFromYaml(stream);
                 else
                     throw new NotImplementedException();
             }
@@ -32,6 +34,15 @@ namespace Idunn.SqlServer.Core.Model
             factory.Initialize();
 
             var parser = new Parser.XmlParser.RootParser(factory);
+            return parser.Parse(stream);
+        }
+
+        protected IEnumerable<Principal> InstantiateFromYaml(Stream stream)
+        {
+            var factory = new Parser.YamlParser.ParserFactory();
+            factory.Initialize();
+
+            var parser = new Parser.YamlParser.RootParser(factory);
             return parser.Parse(stream);
         }
     }

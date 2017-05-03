@@ -1,0 +1,20 @@
+﻿principal:
+  databases:
+    - server: sql-001
+      name: db-001
+      permission: CONNECT
+      securables:
+        - type: schema
+          name: dbo
+          permissions:
+            - SELECT
+            - UPDATE
+        - type: schema
+          name: admin
+          permission: INSERT
+    - server: sql-001
+      name: db-002
+      securable:
+        type: procedure
+        name: dbo.Calculate
+        permission: EXECUTE
