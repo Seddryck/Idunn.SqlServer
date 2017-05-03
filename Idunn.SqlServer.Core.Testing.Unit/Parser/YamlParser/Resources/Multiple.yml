@@ -1,0 +1,37 @@
+﻿principals:
+  - name: ExecuteDwh
+    databases:
+      - server: sql-001
+        name: db-001
+        permissions:
+          - CONNECT
+        securables:
+          - type: schema
+            name: dbo
+            permissions:
+              - SELECT
+              - UPDATE
+          - type: schema
+            name: admin
+            permissions:
+              - INSERT
+      - server: sql-001
+        name: db-002
+        securables:
+          - type: table
+            name: dbo.Results
+            permissions:
+              - SELECT
+          - type: procedure
+            name: dbo.Calculate
+            permissions:
+              - EXECUTE
+  - name: Logger
+    databases:
+      - server: sql-001
+        name: db-002
+        securables:
+          - type: procedure
+            name: dbo.WriteLog
+            permissions:
+              - EXECUTE

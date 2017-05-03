@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parser\YamlParser\RootParserTest.cs" />
     <Compile Include="Parser\XmlParser\RootParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateByDatabaseEngineTest.cs" />
@@ -51,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Parser\YamlParser\Resources\Sample - Condensated.yml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Idunn.SqlServer.Core\Idunn.SqlServer.Core.csproj">
@@ -63,6 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Parser\XmlParser\Resources\Multiple.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Parser\YamlParser\Resources\Multiple.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Parser\YamlParser\Resources\Sample.yml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

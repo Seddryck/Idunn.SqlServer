@@ -17,3 +17,4 @@ $content = $content -replace '\$version\$',$version
 $content | Out-File $root\.package\Idunn.SqlServer.compiled.nuspec -Encoding UTF8
 
 & NuGet.exe pack $root\.package\Idunn.SqlServer.compiled.nuspec -Version $version -OutputDirectory $root\.nupkg
+
