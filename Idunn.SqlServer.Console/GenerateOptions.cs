@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace Idunn.SqlServer.Console
 {
-    [Verb("generate", HelpText = "Generate a file")]
+    [Verb("generate", HelpText = "Generate a file containing the code to execute to perform the permissions' check.")]
     public class GenerateOptions
     {
         [Option('s', "source", Required = true,
-        HelpText = "Name of the file containing information about the permissions to check")]
+        HelpText = "Name of the file containing information about the permissions to check.")]
         public string Source { get; set; }
 
         [Option('t', "template", Required = false,
-        HelpText = "Name of the file containing the template")]
+        HelpText = "Name of the file containing the template to load.")]
         public string Template { get; set; }
 
         [Option('d', "destination", Required = true,
         HelpText = "Name of the file to be generated.")]
         public string Destination { get; set; }
 
-        [Option('p', "principal", Required = false,
-        HelpText = "Name of the principal to impersonate.")]
+        [Option("principal", Required = false,
+        HelpText = "Name of the principal to impersonate. This option is only valid when your source file contains a unique principal.")]
         public string Principal { get; set; }
     }
 }

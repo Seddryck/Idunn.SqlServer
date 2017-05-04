@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace Idunn.SqlServer.Console
 {
-    [Verb("execute", HelpText = "Execute the permission checks defined in a file")]
+    [Verb("execute", HelpText = "Execute the permission checks and report the results.")]
     public class ExecuteOptions
     {
         [Option('s', "source", Required = true,
-        HelpText = "Name of the file containing information about the permissions to check")]
+        HelpText = "Name of the file containing information about the permissions to check.")]
         public string Source { get; set; }
         
-        [Option('p', "principal", Required = false,
-        HelpText = "Name of the principal to impersonate.")]
+        [Option("principal", Required = false,
+        HelpText = "Name of the principal to impersonate. This option is only valid when your source file contains a unique principal.")]
         public string Principal { get; set; }
 
         [Option('o', "output", Required = false,
-        HelpText = "Name of the file to redirect the output of the console.")]
+        HelpText = "Name of the file to redirect the output of the execution.")]
         public string Output { get; set; }
     }
 }
