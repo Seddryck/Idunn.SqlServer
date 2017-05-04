@@ -9,6 +9,11 @@ new-item -Path $root\.nupkg -ItemType directory -force
 Copy-Item $root\Idunn.SqlServer.Console\bin\Debug\* $lib
 
 $version = $env:GitVersion_NuGetVersion
+if ([string]::IsNullOrEmpty($version))
+{
+    Write-Warning "No version found in environment variables, using version of the dll"
+    $version = (Get-Item $lib\Idunn.SqlServer.Core.dll).VersionInfo.FileVersion
+}
 Write-Host "Setting .nuspec version tag to $version"
 
 $content = (Get-Content $root\Idunn.SqlServer.nuspec -Encoding UTF8) 
