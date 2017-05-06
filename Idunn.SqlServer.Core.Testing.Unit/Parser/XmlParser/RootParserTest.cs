@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Reflection;
+using Idunn.SqlServer.Console.Parser;
 
 namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
 {
@@ -20,12 +21,15 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var factory = new Core.Parser.XmlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.XmlParser.RootParser(factory);
+                var register = new Core.Parser.XmlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
                 var principals = parser.Parse(stream);
                 Assert.That(principals, Is.Not.Null);
+                Assert.That(principals, Is.AssignableTo<IEnumerable<Principal>>());
                 Assert.That(principals, Has.Count.EqualTo(1));
             }
         }
@@ -36,11 +40,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var factory = new Core.Parser.XmlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.XmlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.XmlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 Assert.That(principal.Databases, Is.Not.Null.And.Not.Empty);
                 Assert.That(principal.Databases, Has.Count.EqualTo(2));
@@ -56,11 +62,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var factory = new Core.Parser.XmlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.XmlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.XmlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 Assert.That(db.Permissions, Is.Not.Null.And.Not.Empty);
@@ -75,11 +83,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var factory = new Core.Parser.XmlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.XmlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.XmlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 Assert.That(db.Securables, Is.Not.Null.And.Not.Empty);
@@ -96,11 +106,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var factory = new Core.Parser.XmlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.XmlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.XmlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 var securable = db.Securables.Single(s => s.Name == "dbo");
@@ -117,11 +129,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Multiple.xml"))
             {
-                var factory = new Core.Parser.XmlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.XmlParser.RootParser(factory);
-                var principals = parser.Parse(stream);
+                var register = new Core.Parser.XmlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principals = (parser.Parse(stream) as IEnumerable<Principal>);
 
                 Assert.That(principals, Is.Not.Null);
                 Assert.That(principals, Has.Count.EqualTo(2));

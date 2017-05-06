@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 
-namespace Idunn.SqlServer.Core.Parser.XmlParser
+namespace Idunn.SqlServer.Console.Parser
 {
-    public interface IParser<T>
+    class FileParserAttribute : Attribute
     {
-        T Parse(XmlNode node);
+        public string Extension { get; set; }
     }
 }

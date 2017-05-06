@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Idunn.SqlServer.Console.Parser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,17 @@ namespace Idunn.SqlServer.Core.Parser.XmlParser
 {
     public abstract class AbstractParser<T> : IParser<T>
     {
-        protected readonly ParserFactory factory;
+        protected readonly IParserContainer container;
 
-        public AbstractParser(ParserFactory factory)
+        public AbstractParser(IParserContainer container)
         {
-            this.factory = factory;
+            this.container = container;
+        }
+        public T Parse(object node)
+        {
+            if (!(node is XmlNode))
+                throw new ArgumentException();
+            return Parse((XmlNode)node);
         }
 
         public abstract T Parse(XmlNode node);
@@ -23,7 +30,7 @@ namespace Idunn.SqlServer.Core.Parser.XmlParser
             var children = new List<S>();
             foreach (XmlNode child in node.ChildNodes.Cast<XmlNode>().Where(n => n.Name == name))
             {
-                var parser = factory.Retrieve<S>();
+                var parser = container.Retrieve<S>();
                 children.Add(parser.Parse(child));
             }
             return children;

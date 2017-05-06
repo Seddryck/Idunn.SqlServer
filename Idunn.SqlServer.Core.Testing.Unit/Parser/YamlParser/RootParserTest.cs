@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using Idunn.SqlServer.Console.Parser;
 
 namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
 {
@@ -14,17 +15,20 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
     public class ParserTest
     {
         [Test]
-        public void Parse_ValidYaml_CorrectlyParsedPrincipal2()
+        public void Parse_ValidYaml_CorrectlyParsedPrincipal()
         {
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var factory = new Core.Parser.YamlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.YamlParser.RootParser(factory);
+                var register = new Core.Parser.YamlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
                 var principals = parser.Parse(stream);
                 Assert.That(principals, Is.Not.Null);
+                Assert.That(principals, Is.AssignableTo<IEnumerable<Principal>>());
                 Assert.That(principals, Has.Count.EqualTo(1));
             }
         }
@@ -35,11 +39,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var factory = new Core.Parser.YamlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.YamlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.YamlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 Assert.That(principal.Databases, Is.Not.Null.And.Not.Empty);
                 Assert.That(principal.Databases, Has.Count.EqualTo(2));
@@ -55,11 +61,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var factory = new Core.Parser.YamlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.YamlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.YamlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 Assert.That(db.Permissions, Is.Not.Null.And.Not.Empty);
@@ -74,11 +82,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var factory = new Core.Parser.YamlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.YamlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.YamlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 Assert.That(db.Securables, Is.Not.Null.And.Not.Empty);
@@ -95,11 +105,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var factory = new Core.Parser.YamlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.YamlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.YamlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 var securable = db.Securables.Single(s => s.Name == "dbo");
@@ -116,11 +128,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample - Condensated.yml"))
             {
-                var factory = new Core.Parser.YamlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.YamlParser.RootParser(factory);
-                var principal = parser.Parse(stream).ElementAt(0);
+                var register = new Core.Parser.YamlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principal = (parser.Parse(stream).ElementAt(0) as Principal);
 
                 var db = principal.Databases.Single(d => d.Name == "db-001");
                 var securable = db.Securables.Single(s => s.Name == "dbo");
@@ -148,11 +162,13 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Multiple.yml"))
             {
-                var factory = new Core.Parser.YamlParser.ParserFactory();
-                factory.Initialize();
+                var container = new ParserContainer();
 
-                var parser = new Core.Parser.YamlParser.RootParser(factory);
-                var principals = parser.Parse(stream);
+                var register = new Core.Parser.YamlParser.ParserRegister();
+                register.Initialize(container);
+
+                var parser = register.GetRootParser();
+                var principals = (parser.Parse(stream) as IEnumerable<Principal>);
 
                 Assert.That(principals, Is.Not.Null);
                 Assert.That(principals, Has.Count.EqualTo(2));

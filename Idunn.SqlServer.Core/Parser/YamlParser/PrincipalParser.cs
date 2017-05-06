@@ -1,4 +1,5 @@
-﻿using Idunn.SqlServer.Core.Model;
+﻿using Idunn.SqlServer.Console.Parser;
+using Idunn.SqlServer.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace Idunn.SqlServer.Core.Parser.YamlParser
 {
     class PrincipalParser : AbstractParser<Principal>
     {
-        public PrincipalParser(ParserFactory factory)
-        : base(factory)
+        public PrincipalParser(IParserContainer container)
+            : base(container)
         {
         }
 

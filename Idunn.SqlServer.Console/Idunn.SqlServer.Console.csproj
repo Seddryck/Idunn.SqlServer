@@ -65,19 +65,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExecuteOptions.cs" />
+    <Compile Include="Model\ModelFactory.cs" />
+    <Compile Include="Parser\FileParserAttribute.cs" />
     <Compile Include="GenerateOptions.cs" />
+    <Compile Include="Parser\IRootParser.cs" />
+    <Compile Include="Parser\IParser.cs" />
+    <Compile Include="Parser\IParserContainer.cs" />
+    <Compile Include="Parser\IParserRegister.cs" />
+    <Compile Include="Parser\ParserContainer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Idunn.SqlServer.Core\Idunn.SqlServer.Core.csproj">
-      <Project>{a64caf12-84ab-4c2c-8563-d072ad4e8901}</Project>
-      <Name>Idunn.SqlServer.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />

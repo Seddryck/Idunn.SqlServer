@@ -1,4 +1,5 @@
-﻿using Idunn.SqlServer.Core.Model;
+﻿using Idunn.SqlServer.Console.Parser;
+using Idunn.SqlServer.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,16 +10,16 @@ using System.Xml;
 
 namespace Idunn.SqlServer.Core.Parser.XmlParser
 {
-    public class RootParser
+    public class RootParser : IRootParser
     {
-        protected readonly ParserFactory factory;
+        protected readonly IParserContainer container;
 
-        public RootParser(ParserFactory factory)
+        public RootParser(IParserContainer container)
         {
-            this.factory = factory;
+            this.container = container;
         }
 
-        public IEnumerable<Principal> Parse(Stream stream)
+        public IEnumerable<object> Parse(Stream stream)
         {
             using (var streamReader = new StreamReader(stream))
             {
@@ -31,7 +32,7 @@ namespace Idunn.SqlServer.Core.Parser.XmlParser
                     var root = xmlDoc.FirstChild.NextSibling;
 
                     var principals = new List<Principal>();
-                    var parser = factory.Retrieve<Principal>();
+                    var parser = container.Retrieve<Principal>();
                     if (root.Name=="principal")
                     {
                         var principal = parser.Parse(root);

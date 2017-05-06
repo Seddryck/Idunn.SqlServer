@@ -55,6 +55,10 @@
     <EmbeddedResource Include="Parser\YamlParser\Resources\Sample - Condensated.yml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Idunn.SqlServer.Console\Idunn.SqlServer.Console.csproj">
+      <Project>{5bcb31ee-e724-4805-b5f5-d0da1c81a650}</Project>
+      <Name>Idunn.SqlServer.Console</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Idunn.SqlServer.Core\Idunn.SqlServer.Core.csproj">
       <Project>{a64caf12-84ab-4c2c-8563-d072ad4e8901}</Project>
       <Name>IdunnSql.Core</Name>

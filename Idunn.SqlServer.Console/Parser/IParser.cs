@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using YamlDotNet.RepresentationModel;
 
-namespace Idunn.SqlServer.Core.Parser.YamlParser
+namespace Idunn.SqlServer.Console.Parser
 {
     public interface IParser<T>
     {
-        T Parse(YamlNode node);
+        T Parse(object node);
     }
 }

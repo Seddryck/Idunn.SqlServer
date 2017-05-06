@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Idunn.SqlServer.Console.Parser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +11,25 @@ namespace Idunn.SqlServer.Core.Parser.YamlParser
 {
     public abstract class AbstractParser<T> : IParser<T>
     {
-        protected readonly ParserFactory factory;
+        protected readonly IParserContainer container;
 
-        public AbstractParser(ParserFactory factory)
+        public AbstractParser(IParserContainer container)
         {
-            this.factory = factory;
+            this.container = container;
+        }
+
+        public T Parse(object node)
+        {
+            if (!(node is YamlNode))
+                throw new ArgumentException();
+            return Parse((YamlNode)node);
         }
 
         public abstract T Parse(YamlNode node);
 
         protected List<S> ParseChildren<S>(YamlMappingNode node, string single, string multiple)
         {
-            var parser = factory.Retrieve<S>();
+            var parser = container.Retrieve<S>();
             var children = new List<S>();
             if (node.Children.ContainsKey(new YamlScalarNode(single)))
             {
@@ -35,7 +43,6 @@ namespace Idunn.SqlServer.Core.Parser.YamlParser
             }
             return children;
         }
-
 
         protected string GetValue(YamlMappingNode node, string attribute)
         {

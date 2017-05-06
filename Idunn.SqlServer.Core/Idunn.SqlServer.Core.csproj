@@ -81,15 +81,13 @@
   <ItemGroup>
     <Compile Include="Execution\ExecutionEngine.cs" />
     <Compile Include="Execution\ExecutionEngineFactory.cs" />
-    <Compile Include="Model\ModelFactory.cs" />
     <Compile Include="Model\Permission.cs" />
     <Compile Include="Model\Securable.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\Principal.cs" />
     <Compile Include="Parser\XmlParser\AbstractParser.cs" />
-    <Compile Include="Parser\XmlParser\IParser.cs" />
     <Compile Include="Parser\XmlParser\RootParser.cs" />
-    <Compile Include="Parser\XmlParser\ParserFactory.cs" />
+    <Compile Include="Parser\XmlParser\ParserRegister.cs" />
     <Compile Include="Parser\XmlParser\PermissionParser.cs" />
     <Compile Include="Parser\XmlParser\SecurableParser.cs" />
     <Compile Include="Parser\XmlParser\DatabaseParser.cs" />
@@ -97,8 +95,7 @@
     <Compile Include="Parser\XmlParser\XmlReaderFactory.cs" />
     <Compile Include="Parser\YamlParser\AbstractParser.cs" />
     <Compile Include="Parser\YamlParser\DatabaseParser.cs" />
-    <Compile Include="Parser\YamlParser\IParser.cs" />
-    <Compile Include="Parser\YamlParser\ParserFactory.cs" />
+    <Compile Include="Parser\YamlParser\ParserRegister.cs" />
     <Compile Include="Parser\YamlParser\PermissionParser.cs" />
     <Compile Include="Parser\YamlParser\PrincipalParser.cs" />
     <Compile Include="Parser\YamlParser\RootParser.cs" />
@@ -129,7 +126,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Template\StringTemplate\Resources\connect-use-current-user.sql" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Idunn.SqlServer.Console\Idunn.SqlServer.Console.csproj">
+      <Project>{5bcb31ee-e724-4805-b5f5-d0da1c81a650}</Project>
+      <Name>Idunn.SqlServer.Console</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

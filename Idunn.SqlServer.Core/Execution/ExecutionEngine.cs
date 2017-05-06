@@ -16,7 +16,7 @@ namespace Idunn.SqlServer.Core.Execution
         private readonly IEnumerable<TextWriter> outputs;
 
         public ExecutionEngine()
-            : this(Enumerable.Repeat(Console.Out, 1))
+            : this(Enumerable.Repeat(System.Console.Out, 1))
         {
 
         }
@@ -57,13 +57,13 @@ namespace Idunn.SqlServer.Core.Execution
             foreach (var msg in messages)
             {
                 if (msg.TrimStart().StartsWith("Failure"))
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    System.Console.ForegroundColor = ConsoleColor.Red;
                 else if (msg.TrimStart().StartsWith("Success"))
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    System.Console.ForegroundColor = ConsoleColor.Green;
                 else if (msg.TrimStart().StartsWith("Inconclusive"))
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    System.Console.ForegroundColor = ConsoleColor.Yellow;
                 else
-                    Console.ForegroundColor = ConsoleColor.White;
+                    System.Console.ForegroundColor = ConsoleColor.White;
 
                 WriteMessage(msg);
             }

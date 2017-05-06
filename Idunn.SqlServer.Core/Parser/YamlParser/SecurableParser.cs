@@ -1,4 +1,5 @@
-﻿using Idunn.SqlServer.Core.Model;
+﻿using Idunn.SqlServer.Console.Parser;
+using Idunn.SqlServer.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace Idunn.SqlServer.Core.Parser.YamlParser
 {
     class SecurableParser : AbstractParser<Securable>
     {
-        public SecurableParser(ParserFactory factory)
-        :base(factory)
-        { 
+        public SecurableParser(IParserContainer container)
+            : base(container)
+        {
         }
 
         public override Securable Parse(YamlNode node)

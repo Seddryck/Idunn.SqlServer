@@ -1,4 +1,5 @@
-﻿using Idunn.SqlServer.Core.Model;
+﻿using Idunn.SqlServer.Console.Parser;
+using Idunn.SqlServer.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace Idunn.SqlServer.Core.Parser.YamlParser
 {
     class PermissionParser : AbstractParser<Permission>
     {
-        public PermissionParser(ParserFactory factory)
-            : base(factory)
+        public PermissionParser(IParserContainer container)
+            : base(container)
         {
         }
 

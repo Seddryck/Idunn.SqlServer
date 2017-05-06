@@ -1,4 +1,5 @@
-﻿using Idunn.SqlServer.Core.Model;
+﻿using Idunn.SqlServer.Console.Parser;
+using Idunn.SqlServer.Core.Model;
 using Idunn.SqlServer.Core.Parser;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,8 @@ namespace Idunn.SqlServer.Core.Parser.XmlParser
 {
     class DatabaseParser : AbstractParser<Database>
     {
-        public DatabaseParser(ParserFactory factory)
-            : base(factory)
+        public DatabaseParser(IParserContainer container)
+            : base(container)
         {
         }
 

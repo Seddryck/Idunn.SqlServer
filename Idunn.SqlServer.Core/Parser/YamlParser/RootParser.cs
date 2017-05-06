@@ -1,4 +1,5 @@
-﻿using Idunn.SqlServer.Core.Model;
+﻿using Idunn.SqlServer.Console.Parser;
+using Idunn.SqlServer.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,16 +10,16 @@ using YamlDotNet.RepresentationModel;
 
 namespace Idunn.SqlServer.Core.Parser.YamlParser
 {
-    public class RootParser
+    public class RootParser : IRootParser
     {
-        protected readonly ParserFactory factory;
+        protected readonly IParserContainer container;
 
-        public RootParser(ParserFactory factory)
+        public RootParser(IParserContainer container)
         {
-            this.factory = factory;
+            this.container = container;
         }
 
-        public IEnumerable<Principal> Parse(Stream stream)
+        public IEnumerable<object> Parse(Stream stream)
         {
             YamlDocument yamlDoc = null;
             using (var streamReader = new StreamReader(stream))
@@ -31,7 +32,7 @@ namespace Idunn.SqlServer.Core.Parser.YamlParser
             var root = (yamlDoc.RootNode.AllNodes.ElementAt(0) as YamlMappingNode).Children.ElementAt(0);
 
             var principals = new List<Principal>();
-            var parser = factory.Retrieve<Principal>();
+            var parser = container.Retrieve<Principal>();
 
             if ((root.Key as YamlScalarNode).Value == "principal")
             {
@@ -45,5 +46,6 @@ namespace Idunn.SqlServer.Core.Parser.YamlParser
             }
             return principals;
         }
+        
     }
 }
