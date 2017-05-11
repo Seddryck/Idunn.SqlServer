@@ -4,7 +4,7 @@ $principal.databases:{database |
 use [$database.name$];
 go
 
-$current_user(principal=principal.name, database=database, securables=database.securables)$
+$current_user(principal.name=principal, database=database, database.securables=securables)$
 
 go
 }$
