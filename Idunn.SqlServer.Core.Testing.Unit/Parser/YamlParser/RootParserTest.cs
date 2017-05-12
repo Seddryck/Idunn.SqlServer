@@ -20,10 +20,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.YamlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principals = parser.Parse(stream);
@@ -39,10 +38,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.YamlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -61,10 +59,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.YamlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -82,10 +79,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.YamlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -105,10 +101,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample.yml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.YamlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -128,10 +123,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Sample - Condensated.yml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.YamlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -162,10 +156,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.YamlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.YamlParser.Resources.Multiple.yml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.YamlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principals = (parser.Parse(stream) as IEnumerable<Principal>);

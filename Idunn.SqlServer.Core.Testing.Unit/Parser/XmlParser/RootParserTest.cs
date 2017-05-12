@@ -21,10 +21,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.XmlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principals = parser.Parse(stream);
@@ -40,10 +39,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.XmlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -62,10 +60,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.XmlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -83,10 +80,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.XmlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -106,10 +102,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Sample.xml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.XmlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principal = (parser.Parse(stream).ElementAt(0) as Principal);
@@ -129,10 +124,9 @@ namespace Idunn.SqlServer.Core.Testing.Acceptance.Parser.XmlParser
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream("Idunn.SqlServer.Core.Testing.Unit.Parser.XmlParser.Resources.Multiple.xml"))
             {
-                var container = new ParserContainer();
-
                 var register = new Core.Parser.XmlParser.ParserRegister();
-                register.Initialize(container);
+                var container = new ParserContainer();
+                container.Initialize(register);
 
                 var parser = register.GetRootParser();
                 var principals = (parser.Parse(stream) as IEnumerable<Principal>);
