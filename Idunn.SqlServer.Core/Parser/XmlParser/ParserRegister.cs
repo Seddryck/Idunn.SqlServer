@@ -23,7 +23,6 @@ namespace Idunn.SqlServer.Core.Parser.XmlParser
             parsers.Add(typeof(Database), new DatabaseParser(container));
             parsers.Add(typeof(Permission), new PermissionParser(container));
             parsers.Add(typeof(Securable), new SecurableParser(container));
-            //container.Initialize(this);
         }
 
         public IReadOnlyDictionary<Type, object> GetParsers()

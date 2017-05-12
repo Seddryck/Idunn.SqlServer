@@ -85,6 +85,7 @@
     <Compile Include="Template\StringTemplate\ITemplateFactory.cs" />
     <Compile Include="Template\StringTemplate\IStringTemplateEngine.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateEngine.cs" />
+    <Compile Include="Template\StringTemplate\TemplateInfo.cs" />
     <Compile Include="Template\TemplateContainer.cs" />
   </ItemGroup>
   <ItemGroup>

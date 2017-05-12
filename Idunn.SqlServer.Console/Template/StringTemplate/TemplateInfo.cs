@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Idunn.SqlServer.Core.Template.StringTemplate
+namespace Idunn.SqlServer.Console.Template.StringTemplate
 {
     public class TemplateInfo
     {

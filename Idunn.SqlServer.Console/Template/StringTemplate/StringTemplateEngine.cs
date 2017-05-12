@@ -37,17 +37,17 @@ namespace Idunn.SqlServer.Console.Template.StringTemplate
 
         public abstract string Execute(IEnumerable<T> objects);
 
-        protected virtual string Execute(string templateText, IEnumerable<T> objects)
+        protected virtual string Execute(TemplateInfo templateInfo, IEnumerable<T> objects)
         {
-            var dico = new Dictionary<string, TemplateInfo>();
-            dico.Add(RootTemplateName, templateInfo);
-            return Execute(dico, objects);
+            var templateInfocollection = new Dictionary<string, TemplateInfo>();
+            templateInfocollection.Add(RootTemplateName, templateInfo);
+            return Execute(templateInfocollection, objects);
         }
 
-        protected virtual string Execute(Dictionary<string, TemplateInfo> templateInfoCollection, IEnumerable<Principal> principals)
+        protected virtual string Execute(Dictionary<string, TemplateInfo> templateInfoCollection, IEnumerable<T> objects)
         {
             var group = Initialize();
-            var attributes = AssignAttributes(principals);
+            var attributes = AssignAttributes(objects);
 
             foreach (var templateInfo in templateInfoCollection)
                 group.DefineTemplate(templateInfo.Key, templateInfo.Value.Content, templateInfo.Value.Attributes);
@@ -67,7 +67,7 @@ namespace Idunn.SqlServer.Console.Template.StringTemplate
             return sb.ToString();
         }
 
-        protected abstract IEnumerable<Dictionary<string, object>> AssignAttributes(IEnumerable<Principal> principals);
+        protected abstract IEnumerable<Dictionary<string, object>> AssignAttributes(IEnumerable<T> objects);
         
     }
 }
