@@ -36,8 +36,8 @@ namespace Idunn.SqlServer.Core.Execution
                     var connectionString = $"Server={database.Server};Initial Catalog={database.Name};Persist Security Info=False;Integrated Security=sspi;";
                     server.ConnectionContext.ConnectionString = connectionString;
 
-                    var factory = new StringTemplateEngineFactory();
-                    var engine = factory.Instantiate(principal.Name);
+                    var factory = new StringTemplateFactory();
+                    var engine = factory.Instantiate(principal.Name, true, string.Empty);
                     var script = engine.Execute(Enumerable.Repeat(principal,1));
 
                     server.ConnectionContext.InfoMessage += new SqlInfoMessageEventHandler(CaptureMessage);

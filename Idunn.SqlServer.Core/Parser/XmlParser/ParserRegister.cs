@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Idunn.SqlServer.Core.Parser.XmlParser
 {
+    [FileParser(".xml")]
     public class ParserRegister : IParserRegister
     {
         private Dictionary<Type, object> parsers;
@@ -22,7 +23,7 @@ namespace Idunn.SqlServer.Core.Parser.XmlParser
             parsers.Add(typeof(Database), new DatabaseParser(container));
             parsers.Add(typeof(Permission), new PermissionParser(container));
             parsers.Add(typeof(Securable), new SecurableParser(container));
-            container.Initialize(this);
+            //container.Initialize(this);
         }
 
         public IReadOnlyDictionary<Type, object> GetParsers()

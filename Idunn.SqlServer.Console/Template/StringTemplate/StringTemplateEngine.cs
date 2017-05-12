@@ -1,5 +1,4 @@
 ﻿using Antlr4.StringTemplate;
-using Idunn.SqlServer.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Idunn.SqlServer.Core.Template.StringTemplate
+namespace Idunn.SqlServer.Console.Template.StringTemplate
 {
-    public abstract class StringTemplateEngine
+    public abstract class StringTemplateEngine<T> : IStringTemplateEngine
     {
         public const string RootTemplateName = "root";
 
@@ -20,7 +19,7 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
             group.RegisterRenderer(typeof(string), new StringRenderer());
             return group;
         }
-        
+
         protected string ReadResource(string textFile)
         {
             var assembly = Assembly.GetExecutingAssembly();
@@ -30,20 +29,25 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
                     return streamReader.ReadToEnd();
             }
         }
+        public string Execute(IEnumerable<object> objects)
+        {
+            return Execute(objects.Cast<T>());
+        }
 
-        public abstract string Execute(IEnumerable<Principal> principals);
 
-        protected virtual string Execute(string templateText, IEnumerable<Principal> principals)
+        public abstract string Execute(IEnumerable<T> objects);
+
+        protected virtual string Execute(string templateText, IEnumerable<T> objects)
         {
             var dico = new Dictionary<string, string>();
             dico.Add(RootTemplateName, templateText);
-            return Execute(dico, principals);
+            return Execute(dico, objects);
         }
 
-        protected virtual string Execute(Dictionary<string, string> templateTexts, IEnumerable<Principal> principals)
+        protected virtual string Execute(Dictionary<string, string> templateTexts, IEnumerable<T> objects)
         {
             var group = Initialize();
-            var dicos = AssignVariables(principals);
+            var dicos = AssignVariables(objects);
 
             foreach (var templateName in templateTexts.Keys)
                 group.DefineTemplate(templateName, templateTexts[templateName], dicos.ElementAt(0).Keys.ToArray());
@@ -64,7 +68,7 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
             return sb.ToString();
         }
 
-        protected abstract IEnumerable<Dictionary<string, object>> AssignVariables(IEnumerable<Principal> principals);
+        protected abstract IEnumerable<Dictionary<string, object>> AssignVariables(IEnumerable<T> objects);
         
     }
 }

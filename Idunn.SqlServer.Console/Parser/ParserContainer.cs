@@ -39,6 +39,7 @@ namespace Idunn.SqlServer.Console.Parser
 
         public void Initialize(IParserRegister register)
         {
+            register.Initialize(this);
             rootParsers.Add(register.GetRootParser());
             foreach (var item in register.GetParsers())
             {

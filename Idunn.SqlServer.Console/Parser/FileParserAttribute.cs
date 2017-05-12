@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Idunn.SqlServer.Console.Parser
 {
-    class FileParserAttribute : Attribute
+    public class FileParserAttribute : Attribute
     {
         public string Extension { get; set; }
+
+        public FileParserAttribute(string extension)
+        {
+            Extension = extension;
+        }
     }
 }

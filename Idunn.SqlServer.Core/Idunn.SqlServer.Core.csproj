@@ -108,8 +108,8 @@
     <Compile Include="Template\StringTemplate\CurrentUserEngine.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateByDatabaseEngine.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateAllInOneEngine.cs" />
-    <Compile Include="Template\StringTemplate\StringTemplateEngine.cs" />
-    <Compile Include="Template\StringTemplate\StringTemplateEngineFactory.cs" />
+    <Compile Include="Template\StringTemplate\StringTemplateFactory.cs" />
+    <Compile Include="Template\StringTemplate\StringTemplateFactoryRegister.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

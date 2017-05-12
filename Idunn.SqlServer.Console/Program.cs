@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Idunn.SqlServer.Console.Parser;
 using Idunn.SqlServer.Console.Model;
+using Idunn.SqlServer.Console.Template;
 
 namespace Idunn.SqlServer.Console
 {
@@ -33,17 +34,22 @@ namespace Idunn.SqlServer.Console
 
             var modelFactory = new ModelFactory();
 
-            var principals = modelFactory.Instantiate(options.Source, container);
-            //if (principals.Count() > 1 && !string.IsNullOrEmpty(options.Principal))
-            //    throw new ArgumentException($"The file {options.Source} contains more than one principal. You cannot specify the principal on the command line arguments.");
+            var collection = modelFactory.Instantiate(options.Source, container);
+            //if (objects.Count() > 1 && !string.IsNullOrEmpty(options.Principal))
+            //    throw new ArgumentException($"The file {options.Source} contains more than one root object. You cannot specify the principal on the command line arguments.");
             //else
-            //    principals.ElementAt(0).Name = options.Principal;
+            //    objects.ElementAt(0).Name = options.Principal;
             ////Render the template
-            //var engineFactory = new StringTemplateEngineFactory();
-            //var engine = engineFactory.Instantiate(options.Principal, true, options.Template);
-            //var text = engine.Execute(principals);
-            ////Persist the rendering
-            //File.WriteAllText(options.Destination, text);
+            foreach (var item in collection)
+            {
+                Type type = item.GetType().GetGenericArguments()[0];
+
+                var templateContainer = new TemplateContainer();
+                var templateFactory = templateContainer.Retrieve(type);
+                var engine = templateFactory.Instantiate(string.Empty, false, options.Template);
+                var text = engine.Execute(item as IEnumerable<object>);
+                File.WriteAllText(options.Destination, text);
+            }
 
             return 0;
         }
@@ -62,7 +68,7 @@ namespace Idunn.SqlServer.Console
             //var executionEngineFactory = new ExecutionEngineFactory();
             //var engine = executionEngineFactory.Instantiate(System.Console.Out, options.Output);
             //engine.Execute(principals);
-            
+
             return 0;
         }
     }

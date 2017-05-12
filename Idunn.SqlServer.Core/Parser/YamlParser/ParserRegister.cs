@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Idunn.SqlServer.Core.Parser.YamlParser
 {
+    [FileParser(".yml")]
     public class ParserRegister : IParserRegister
     {
         private Dictionary<Type, object> parsers;
