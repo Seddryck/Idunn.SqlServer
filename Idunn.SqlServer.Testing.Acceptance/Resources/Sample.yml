@@ -1,4 +1,5 @@
 ﻿principal:
+  name: user-001
   databases:
     - server: sql-001
       name: db-001

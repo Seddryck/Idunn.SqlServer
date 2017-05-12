@@ -14,18 +14,10 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
         {
             if (string.IsNullOrEmpty(filename))
             {
-                if (string.IsNullOrEmpty(account))
-                    if (isInteractive)
-                        return new CurrentUserEngine();
-                    else
-                        return new ConnectUseCurrentUserEngine();
+                if (isSqlCmd)
+                    return new ConnectUseImpersonateEngine();
                 else
-                {
-                    if (isInteractive)
-                        return new ImpersonateEngine();
-                    else
-                        return new ConnectUseImpersonateEngine();
-                }
+                    return new ImpersonateEngine();
             }
             else
                 return new ExternalFileEngine(filename);

@@ -81,11 +81,13 @@
   <ItemGroup>
     <Compile Include="Execution\ExecutionEngine.cs" />
     <Compile Include="Execution\ExecutionEngineFactory.cs" />
+    <Compile Include="Model\ModelFactory.cs" />
     <Compile Include="Model\Permission.cs" />
     <Compile Include="Model\Securable.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\Principal.cs" />
     <Compile Include="Parser\XmlParser\AbstractParser.cs" />
+    <Compile Include="Parser\XmlParser\IParser.cs" />
     <Compile Include="Parser\XmlParser\RootParser.cs" />
     <Compile Include="Parser\XmlParser\ParserRegister.cs" />
     <Compile Include="Parser\XmlParser\PermissionParser.cs" />
@@ -95,21 +97,21 @@
     <Compile Include="Parser\XmlParser\XmlReaderFactory.cs" />
     <Compile Include="Parser\YamlParser\AbstractParser.cs" />
     <Compile Include="Parser\YamlParser\DatabaseParser.cs" />
-    <Compile Include="Parser\YamlParser\ParserRegister.cs" />
+    <Compile Include="Parser\YamlParser\IParser.cs" />
+    <Compile Include="Parser\YamlParser\ParserFactory.cs" />
     <Compile Include="Parser\YamlParser\PermissionParser.cs" />
     <Compile Include="Parser\YamlParser\PrincipalParser.cs" />
     <Compile Include="Parser\YamlParser\RootParser.cs" />
     <Compile Include="Parser\YamlParser\SecurableParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Template\StringTemplate\ConnectUseCurrentUserEngine.cs" />
     <Compile Include="Template\StringTemplate\ExternalFileEngine.cs" />
     <Compile Include="Template\StringTemplate\ConnectUseImpersonateEngine.cs" />
     <Compile Include="Template\StringTemplate\ImpersonateEngine.cs" />
-    <Compile Include="Template\StringTemplate\CurrentUserEngine.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateByDatabaseEngine.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateAllInOneEngine.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateFactory.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateFactoryRegister.cs" />
+    <Compile Include="Template\StringTemplate\TemplateInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -118,13 +120,7 @@
     <EmbeddedResource Include="Template\StringTemplate\Resources\impersonate.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Template\StringTemplate\Resources\current-user.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Template\StringTemplate\Resources\connect-use-impersonate.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Template\StringTemplate\Resources\connect-use-current-user.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Idunn.SqlServer.Console\Idunn.SqlServer.Console.csproj">

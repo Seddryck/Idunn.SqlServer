@@ -13,10 +13,6 @@ namespace Idunn.SqlServer.Console
         [Option('s', "source", Required = true,
         HelpText = "Name of the file containing information about the permissions to check.")]
         public string Source { get; set; }
-        
-        [Option("principal", Required = false,
-        HelpText = "Name of the principal to impersonate. This option is only valid when your source file contains a unique principal.")]
-        public string Principal { get; set; }
 
         [Option('o', "output", Required = false,
         HelpText = "Name of the file to redirect the output of the execution.")]

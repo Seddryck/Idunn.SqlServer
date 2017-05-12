@@ -14,9 +14,9 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
     {
         public class TestableStringTemplateEngine : StringTemplateAllInOneEngine
         {
-            public new string Execute(string template, IEnumerable<Principal> principals)
+            public new string Execute(TemplateInfo templateInfo, IEnumerable<Principal> principals)
             {
-                return base.Execute(template, principals);
+                return base.Execute(templateInfo, principals);
             }
 
             public override string Execute(IEnumerable<Principal> principals)
@@ -31,7 +31,13 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
             var principals = Enumerable.Repeat(new Principal("MyUser", new List<Database>() { new Database("db-001", "sql-001", null, null) }), 1);
             var engine = new TestableStringTemplateEngine();
 
-            var result = engine.Execute("$principals:{principal |Principal = $principal.Name$}$", principals);
+            var templateInfo = new TemplateInfo()
+            {
+                Content = "$principals:{principal |Principal = $principal.Name$}$"
+                , Attributes = new[] { "principals" }
+            };
+
+            var result = engine.Execute(templateInfo, principals);
             Assert.That(result, Is.EqualTo("Principal = MyUser"));
 
         }
@@ -44,7 +50,14 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
             principals.Add(new Principal("MyCopy", new List<Database>() { new Database("db-001", "sql-001", null, null) }));
             var engine = new TestableStringTemplateEngine();
 
-            var result = engine.Execute("$principals:{principal |Principal = $principal.Name$#}$", principals);
+            var templateInfo = new TemplateInfo()
+            {
+                Content = "$principals:{principal |Principal = $principal.Name$#}$"
+                ,
+                Attributes = new[] { "principals" }
+            };
+
+            var result = engine.Execute(templateInfo, principals);
             Assert.That(result, Is.EqualTo("Principal = MyUser#Principal = MyCopy#"));
 
         }
@@ -60,7 +73,14 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
             var principals = Enumerable.Repeat(new Principal("MyUser", databases),1);
             var engine = new TestableStringTemplateEngine();
 
-            var result = engine.Execute("$principals:{principal | $principal.databases:{database |Database = $database.server$/$database.name$#}$}$", principals);
+            var templateInfo = new TemplateInfo()
+            {
+                Content = "$principals:{principal | $principal.databases:{database |Database = $database.server$/$database.name$#}$}$"
+                ,
+                Attributes = new[] { "principals" }
+            };
+
+            var result = engine.Execute(templateInfo, principals);
             Assert.That(result, Is.EqualTo("Database = sql-001/db-001#Database = sql-001/db-002#"));
         }
 
@@ -78,7 +98,14 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
             var principals = Enumerable.Repeat(new Principal("MyUser", databases), 1);
             var engine = new TestableStringTemplateEngine();
 
-            var result = engine.Execute("$principals:{principal | $principal.databases:{database | $database.securables : { securable|$securable.permission$ on $securable.type$::$securable.name$ for $principal.Name$\r\n}$}$}$", principals);
+            var templateInfo = new TemplateInfo()
+            {
+                Content = "$principals:{principal | $principal.databases:{database | $database.securables : { securable|$securable.permission$ on $securable.type$::$securable.name$ for $principal.Name$\r\n}$}$}$"
+                ,
+                Attributes = new[] { "principals" }
+            };
+
+            var result = engine.Execute(templateInfo, principals);
             Assert.That(result, Is.EqualTo("SELECT on SCHEMA::dbo for MyUser\r\nINSERT on OBJECT::admin.Log for MyUser\r\n"));
         }
     }

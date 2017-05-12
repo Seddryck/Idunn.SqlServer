@@ -37,7 +37,7 @@ namespace Idunn.SqlServer.Console
             var collection = modelFactory.Instantiate(options.Source, container);
             //if (objects.Count() > 1 && !string.IsNullOrEmpty(options.Principal))
             //    throw new ArgumentException($"The file {options.Source} contains more than one root object. You cannot specify the principal on the command line arguments.");
-            //else
+            var engine = engineFactory.Instantiate(principals.ElementAt(0).Name, true, options.Template);
             //    objects.ElementAt(0).Name = options.Principal;
             ////Render the template
             foreach (var item in collection)

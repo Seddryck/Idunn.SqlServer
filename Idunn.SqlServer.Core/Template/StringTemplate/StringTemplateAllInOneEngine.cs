@@ -13,7 +13,7 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
 {
     public abstract class StringTemplateAllInOneEngine : StringTemplateEngine<Principal>
     {
-        protected override IEnumerable<Dictionary<string, object>> AssignVariables(IEnumerable<Principal> principals)
+        protected override IEnumerable<Dictionary<string, object>> AssignAttributes(IEnumerable<Principal> principals)
         {
             var principalsDto = new List<object>();
             foreach (var principal in principals)

@@ -11,10 +11,21 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
     {
         public override string Execute(IEnumerable<Principal> principals)
         {
-            var dico = new Dictionary<string, string>();
-            dico.Add(RootTemplateName, ReadResource("connect-use-impersonate.sql"));
-            dico.Add("impersonate", ReadResource("impersonate.sql"));
-            var text = Execute(dico, principals);
+            var templateInfocollection = new Dictionary<string, TemplateInfo>();
+            templateInfocollection.Add(RootTemplateName, 
+                new TemplateInfo()
+                {
+                        Content = ReadResource("connect-use-impersonate.sql")
+                        , Attributes = new[] { "principals" }
+                });
+            templateInfocollection.Add("impersonate",
+                new TemplateInfo()
+                {
+                    Content = ReadResource("impersonate.sql")
+                        ,
+                    Attributes = new[] { "principal", "securables" }
+                });
+            var text = Execute(templateInfocollection, principals);
             return text;
         }
     }
