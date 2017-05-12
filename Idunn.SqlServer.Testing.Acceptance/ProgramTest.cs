@@ -16,10 +16,12 @@ namespace Idunn.SqlServer.Testing.Acceptance
     public class ProgramTest
     {
         [Test]
-        public void Main_Generate_Succesful()
+        [TestCase("xml")]
+        [TestCase("yml")]
+        public void Main_Generate_Succesful(string extension)
         {
-            var source = ResourceOnDisk.CreatePhysicalFile("Sample.xml", "Idunn.SqlServer.Testing.Acceptance.Resources.Sample.xml");
-            var destination = Path.ChangeExtension(source, ".sql");
+            var source = ResourceOnDisk.CreatePhysicalFile($"Sample.{extension}", $"Idunn.SqlServer.Testing.Acceptance.Resources.Sample.{extension}");
+            var destination = Path.ChangeExtension(source, $".{extension}.sql");
 
             var args = new List<string>();
             args.Add("generate");
@@ -29,23 +31,7 @@ namespace Idunn.SqlServer.Testing.Acceptance
             var result = Program.Main(args.ToArray());
             Assert.That(result, Is.EqualTo(0));
         }
-
-        [Test]
-        public void Main_GenerateWithImpersonate_Succesful()
-        {
-            var source = ResourceOnDisk.CreatePhysicalFile("Sample.xml", "Idunn.SqlServer.Testing.Acceptance.Resources.Sample.xml");
-            var destination = Path.ChangeExtension(source, ".impersonate.sql");
-
-            var args = new List<string>();
-            args.Add("generate");
-            args.Add($"--source={source}");
-            args.Add($"--destination={destination}");
-            args.Add($"--principal=Proxy_ETL");
-
-            var result = Program.Main(args.ToArray());
-            Assert.That(result, Is.EqualTo(0));
-        }
-
+        
         [Test]
         [TestCase("xml")]
         [TestCase("yml")]
@@ -60,7 +46,6 @@ namespace Idunn.SqlServer.Testing.Acceptance
             args.Add($"--source={source}");
             args.Add($"--destination={destination}");
             args.Add($"--template={template}");
-            args.Add($"--principal=Proxy_ETL");
 
             var result = Program.Main(args.ToArray());
             Assert.That(result, Is.EqualTo(0));
@@ -69,12 +54,14 @@ namespace Idunn.SqlServer.Testing.Acceptance
             var actual = File.ReadAllText(destination);
             Assert.That(actual, Is.EqualTo(expected));
         }
-
+        
         [Test]
         [Category("AdventureWorksDW2012")]
-        public void Main_ExecuteWithCurrentUser_Succesful()
+        [TestCase("xml")]
+        [TestCase("yml")]
+        public void Main_ExecuteWithImpersonation_Succesful(string extension)
         {
-            var source = ResourceOnDisk.CreatePhysicalFile("AdventureWorksDW2012.xml", "Idunn.SqlServer.Testing.Acceptance.Resources.AdventureWorksDW2012.xml");
+            var source = ResourceOnDisk.CreatePhysicalFile($"AdventureWorksDW2012.{extension}", $"Idunn.SqlServer.Testing.Acceptance.Resources.AdventureWorksDW2012.{extension}");
 
             var args = new List<string>();
             args.Add("execute");
@@ -84,22 +71,7 @@ namespace Idunn.SqlServer.Testing.Acceptance
             Assert.That(result, Is.EqualTo(0));
 
         }
-
-        [Test]
-        [Category("AdventureWorksDW2012")]
-        public void Main_ExecuteWithImpersonation_Succesful()
-        {
-            var source = ResourceOnDisk.CreatePhysicalFile("AdventureWorksDW2012.xml", "Idunn.SqlServer.Testing.Acceptance.Resources.AdventureWorksDW2012.xml");
-
-            var args = new List<string>();
-            args.Add("execute");
-            args.Add($"--source={source}");
-            args.Add($"--principal=COLUMBIA\\cedri");
-
-            var result = Program.Main(args.ToArray());
-            Assert.That(result, Is.EqualTo(0));
-        }
-
+        
         [Test]
         [Category("AdventureWorksDW2012")]
         [TestCase("xml")]

@@ -21,9 +21,5 @@ namespace Idunn.SqlServer.Console
         [Option('d', "destination", Required = true,
         HelpText = "Name of the file to be generated.")]
         public string Destination { get; set; }
-
-        [Option("principal", Required = false,
-        HelpText = "Name of the principal to impersonate. This option is only valid when your source file contains a unique principal.")]
-        public string Principal { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<principal>
+<principal name="COLUMBIA\\cedri">
   <database server=".\sql2016" name="AdventureWorksDW2012">
     <permission name="CONNECT"/>
     <securable type="schema" name="dbo">

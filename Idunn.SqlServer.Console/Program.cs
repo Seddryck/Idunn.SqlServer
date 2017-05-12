@@ -31,13 +31,9 @@ namespace Idunn.SqlServer.Console
             //Parse the model
             var factory = new ModelFactory();
             var principals = factory.Instantiate(options.Source);
-            if (principals.Count() > 1 && !string.IsNullOrEmpty(options.Principal))
-                throw new ArgumentException($"The file {options.Source} contains more than one principal. You cannot specify the principal on the command line arguments.");
-            else
-                principals.ElementAt(0).Name = options.Principal;
             //Render the template
             var engineFactory = new StringTemplateEngineFactory();
-            var engine = engineFactory.Instantiate(options.Principal, true, options.Template);
+            var engine = engineFactory.Instantiate(principals.ElementAt(0).Name, true, options.Template);
             var text = engine.Execute(principals);
             //Persist the rendering
             File.WriteAllText(options.Destination, text);
@@ -51,10 +47,7 @@ namespace Idunn.SqlServer.Console
             //Parse the model
             var modelFactory = new ModelFactory();
             var principals = modelFactory.Instantiate(options.Source);
-            if (principals.Count() > 1 && !string.IsNullOrEmpty(options.Principal))
-                throw new ArgumentException($"The file {options.Source} contains more than one principal. You cannot specify the principal on the command line arguments.");
-            else
-                principals.ElementAt(0).Name = options.Principal;
+            
             //Eexcute the checks
             var executionEngineFactory = new ExecutionEngineFactory();
             var engine = executionEngineFactory.Instantiate(System.Console.Out, options.Output);

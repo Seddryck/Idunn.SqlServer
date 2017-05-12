@@ -33,29 +33,28 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
 
         public abstract string Execute(IEnumerable<Principal> principals);
 
-        protected virtual string Execute(string templateText, IEnumerable<Principal> principals)
+        protected virtual string Execute(TemplateInfo templateInfo, IEnumerable<Principal> principals)
         {
-            var dico = new Dictionary<string, string>();
-            dico.Add(RootTemplateName, templateText);
+            var dico = new Dictionary<string, TemplateInfo>();
+            dico.Add(RootTemplateName, templateInfo);
             return Execute(dico, principals);
         }
 
-        protected virtual string Execute(Dictionary<string, string> templateTexts, IEnumerable<Principal> principals)
+        protected virtual string Execute(Dictionary<string, TemplateInfo> templateInfoCollection, IEnumerable<Principal> principals)
         {
             var group = Initialize();
-            var dicos = AssignVariables(principals);
+            var attributes = AssignAttributes(principals);
 
-            foreach (var templateName in templateTexts.Keys)
-                group.DefineTemplate(templateName, templateTexts[templateName], dicos.ElementAt(0).Keys.ToArray());
+            foreach (var templateInfo in templateInfoCollection)
+                group.DefineTemplate(templateInfo.Key, templateInfo.Value.Content, templateInfo.Value.Attributes);
 
             var sb = new StringBuilder();
-           
 
-            foreach (var dico in dicos)
+            foreach (var attribute in attributes)
             {
                 var template = group.GetInstanceOf(RootTemplateName);
-                foreach (var key in dico.Keys)
-                    template.Add(key, dico[key]);
+                foreach (var key in attribute.Keys)
+                    template.Add(key, attribute[key]);
 
                 var rendered = template.Render();
                 sb.Append(rendered);
@@ -64,7 +63,7 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
             return sb.ToString();
         }
 
-        protected abstract IEnumerable<Dictionary<string, object>> AssignVariables(IEnumerable<Principal> principals);
+        protected abstract IEnumerable<Dictionary<string, object>> AssignAttributes(IEnumerable<Principal> principals);
         
     }
 }
