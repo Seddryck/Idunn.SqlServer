@@ -34,7 +34,7 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
 
             var templateInfo = new TemplateInfo()
             {
-                Content = "$principal.Name$#$database.name$#$database.server$",
+                Content = "$principal$#$database.name$#$database.server$",
                 Attributes = new[] { "principal", "database", "securables" }
             };
 
@@ -55,7 +55,7 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
 
             var templateInfo = new TemplateInfo()
             {
-                Content = "$principal.Name$#$database.name$#$database.server$§",
+                Content = "$principal$#$database.name$#$database.server$§",
                 Attributes = new[] { "principal", "database", "securables" }
             };
 
@@ -77,7 +77,7 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
 
             var templateInfo = new TemplateInfo()
             {
-                Content = "$principal.Name$#$database.name$#$database.server$§",
+                Content = "$principal$#$database.name$#$database.server$§",
                 Attributes = new[] { "principal", "database", "securables" }
             };
 
@@ -101,7 +101,7 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
 
             var templateInfo = new TemplateInfo()
             {
-                Content = "$securables:{securable|$securable.permission$ on $securable.type$::$securable.name$ for $principal.name$\r\n}$",
+                Content = "$securables:{securable|$securable.permission$ on $securable.type$::$securable.name$ for $principal$\r\n}$",
                 Attributes = new[] { "principal", "database", "securables" }
             };
 
