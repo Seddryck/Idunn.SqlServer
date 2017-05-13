@@ -9,7 +9,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace Idunn.Console.Parser.XmlParser
+namespace Idunn.Console.Parser
 {
     public class XmlReaderFactory
     {
