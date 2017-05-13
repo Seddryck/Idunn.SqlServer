@@ -20,27 +20,21 @@ namespace Idunn.SqlServer.Console.Template.StringTemplate
             return group;
         }
 
-        protected string ReadResource(string textFile)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var stream = assembly.GetManifestResourceStream($"Idunn.SqlServer.Core.Template.StringTemplate.Resources.{textFile}"))
-            {
-                using (var streamReader = new StreamReader(stream))
-                    return streamReader.ReadToEnd();
-            }
-        }
+        protected abstract string ReadResource(string textFile);
+        
         public string Execute(IEnumerable<object> objects)
         {
             return Execute(objects.Cast<T>());
         }
 
-
         public abstract string Execute(IEnumerable<T> objects);
 
         protected virtual string Execute(TemplateInfo templateInfo, IEnumerable<T> objects)
         {
-            var templateInfocollection = new Dictionary<string, TemplateInfo>();
-            templateInfocollection.Add(RootTemplateName, templateInfo);
+            var templateInfocollection = new Dictionary<string, TemplateInfo>()
+            {
+                [RootTemplateName] = templateInfo
+            };
             return Execute(templateInfocollection, objects);
         }
 

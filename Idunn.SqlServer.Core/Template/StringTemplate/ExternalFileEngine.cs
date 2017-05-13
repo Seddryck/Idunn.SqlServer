@@ -24,13 +24,15 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
                 throw new ArgumentException($"File {filename} not found!");
 
             var template = File.ReadAllText(filename);
-            var templateInfocollection = new Dictionary<string, TemplateInfo>();
-            templateInfocollection.Add(RootTemplateName,
-                new TemplateInfo()
-                {
-                    Content = template,
-                    Attributes = new[] { "principals" }
-                });
+            var templateInfocollection = new Dictionary<string, TemplateInfo>()
+            {
+                [RootTemplateName] =
+                    new TemplateInfo()
+                    {
+                        Content = template,
+                        Attributes = new[] { "principals" }
+                    }
+            };
             var text = Execute(templateInfocollection, principals);
             return text;
         }

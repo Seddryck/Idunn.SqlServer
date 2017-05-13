@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Idunn.SqlServer.Core.Template.StringTemplate
 {
-    public abstract class StringTemplateAllInOneEngine : StringTemplateEngine<Principal>
+    public abstract class StringTemplateAllInOneEngine : StringTemplateSqlServerEngine
     {
         protected override IEnumerable<Dictionary<string, object>> AssignAttributes(IEnumerable<Principal> principals)
         {
@@ -37,8 +37,10 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
                 principalsDto.Add(principalDto);
             }
 
-            var dico = new Dictionary<string, object>();
-            dico.Add("principals", principalsDto);
+            var dico = new Dictionary<string, object>()
+            {
+                ["principals"] = principalsDto
+            };
 
             yield return dico;
         }

@@ -16,7 +16,7 @@ namespace Idunn.SqlServer.Console.Parser
         public void Initialize(string extension)
         {
             var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var files = Directory.GetFiles(currentPath, "Idunn.*.dll");
+            var files = Directory.GetFiles(currentPath, "Idunn.*.Core.dll");
             var factories = new List<object>();
             foreach (var file in files)
             {
@@ -42,10 +42,7 @@ namespace Idunn.SqlServer.Console.Parser
             register.Initialize(this);
             rootParsers.Add(register.GetRootParser());
             foreach (var item in register.GetParsers())
-            {
-                parsers.Add(item.Key, item.Value);
-            }
-                
+                parsers.Add(item.Key, item.Value);              
         }
 
         public IParser<T> Retrieve<T>()

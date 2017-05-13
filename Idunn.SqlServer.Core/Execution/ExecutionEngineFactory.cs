@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Idunn.SqlServer.Console.Execution;
+using Idunn.SqlServer.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace Idunn.SqlServer.Core.Execution
 {
-    public class ExecutionEngineFactory
+    [Executor(typeof(Principal))]
+    public class ExecutionEngineFactory : IExecutorFactory
     {
-        public ExecutionEngine Instantiate(TextWriter consoleOut, string filename)
+        public ExecutorEngine<Principal> Instantiate(IEnumerable<TextWriter> textWriters)
         {
-            var textWriters = new List<TextWriter>();
-            textWriters.Add(consoleOut);
-
-            if (!string.IsNullOrEmpty(filename))
-                textWriters.Add(new StreamWriter(filename));
-
-            var engine = new ExecutionEngine(textWriters);
+            var engine = new SqlServerEngine(textWriters);
             return engine;
+        }
+
+        IExecutorEngine IExecutorFactory.Instantiate(IEnumerable<TextWriter> textWriters)
+        {
+            return Instantiate(textWriters);
         }
     }
 }

@@ -71,6 +71,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExecuteOptions.cs" />
+    <Compile Include="Execution\ExecutionEngine.cs" />
+    <Compile Include="Execution\ExecutorContainer.cs" />
+    <Compile Include="Execution\ExecutorAttribute.cs" />
+    <Compile Include="Execution\IExecutorFactory.cs" />
+    <Compile Include="Execution\IExecutorEngine.cs" />
     <Compile Include="Model\ModelFactory.cs" />
     <Compile Include="Parser\FileParserAttribute.cs" />
     <Compile Include="GenerateOptions.cs" />

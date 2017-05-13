@@ -1,4 +1,5 @@
 ﻿principal:
+  name: dbo
   database:
     server: .\sql2016
     name: AdventureWorksDW2012

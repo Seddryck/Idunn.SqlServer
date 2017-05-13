@@ -12,20 +12,21 @@ namespace Idunn.SqlServer.Core.Template.StringTemplate
     {
         public override string Execute(IEnumerable<Principal> principals)
         {
-            var templateInfocollection = new Dictionary<string, TemplateInfo>();
-            templateInfocollection.Add(RootTemplateName, 
-                new TemplateInfo()
-                {
-                        Content = ReadResource("connect-use-impersonate.sql")
-                        , Attributes = new[] { "principals" }
-                });
-            templateInfocollection.Add("impersonate",
-                new TemplateInfo()
-                {
-                    Content = ReadResource("impersonate.sql")
-                        ,
-                    Attributes = new[] { "principal", "securables" }
-                });
+            var templateInfocollection = new Dictionary<string, TemplateInfo>()
+            {
+                [RootTemplateName] =  
+                    new TemplateInfo()
+                    {
+                        Content = ReadResource("connect-use-impersonate.sql"),
+                        Attributes = new[] { "principals" }
+                    },
+                ["impersonate"] = 
+                    new TemplateInfo()
+                    {
+                        Content = ReadResource("impersonate.sql"),
+                        Attributes = new[] { "principal", "securables" }
+                    }
+            };
             var text = Execute(templateInfocollection, principals);
             return text;
         }

@@ -79,7 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Execution\ExecutionEngine.cs" />
+    <Compile Include="Execution\SqlServerEngine.cs" />
     <Compile Include="Execution\ExecutionEngineFactory.cs" />
     <Compile Include="Model\Permission.cs" />
     <Compile Include="Model\Securable.cs" />
@@ -108,6 +108,7 @@
     <Compile Include="Template\StringTemplate\StringTemplateAllInOneEngine.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateFactory.cs" />
     <Compile Include="Template\StringTemplate\StringTemplateFactoryRegister.cs" />
+    <Compile Include="Template\StringTemplate\StringTemplateSqlServerEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

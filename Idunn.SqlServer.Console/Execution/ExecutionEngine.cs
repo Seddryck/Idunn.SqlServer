@@ -1,7 +1,4 @@
-﻿using Idunn.SqlServer.Core.Model;
-using Idunn.SqlServer.Core.Template.StringTemplate;
-using Microsoft.SqlServer.Management.Smo;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
@@ -9,46 +6,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Idunn.SqlServer.Core.Execution
+namespace Idunn.SqlServer.Console.Execution
 {
-    public class ExecutionEngine
+    public abstract class ExecutorEngine<T> : IExecutorEngine
     {
         private readonly IEnumerable<TextWriter> outputs;
 
-        public ExecutionEngine()
+        public ExecutorEngine()
             : this(Enumerable.Repeat(System.Console.Out, 1))
         {
 
         }
 
-        public ExecutionEngine(IEnumerable<TextWriter> outputs)
+        public ExecutorEngine(IEnumerable<TextWriter> outputs)
         {
             this.outputs = outputs;
         }
 
-        public void Execute(IEnumerable<Principal> principals)
+        void IExecutorEngine.Execute(IEnumerable<object> objects)
         {
-            foreach (var principal in principals)
-            {
-                foreach (var database in principal.Databases)
-                {
-                    var server = new Server();
-                    var connectionString = $"Server={database.Server};Initial Catalog={database.Name};Persist Security Info=False;Integrated Security=sspi;";
-                    server.ConnectionContext.ConnectionString = connectionString;
-
-                    var factory = new StringTemplateFactory();
-                    var engine = factory.Instantiate(principal.Name, true, string.Empty);
-                    var script = engine.Execute(Enumerable.Repeat(principal,1));
-
-                    server.ConnectionContext.InfoMessage += new SqlInfoMessageEventHandler(CaptureMessage);
-
-                    WriteMessage("Start execution ...");
-                    server.ConnectionContext.ExecuteNonQuery(script);
-                    WriteMessage("End of execution.");
-                    CloseOutputs();
-                }
-            }
+            Execute(objects.Cast<T>());
         }
+
+        public abstract void Execute(IEnumerable<T> objects);
+        
 
         public void CaptureMessage(object sender, SqlInfoMessageEventArgs e)
         {

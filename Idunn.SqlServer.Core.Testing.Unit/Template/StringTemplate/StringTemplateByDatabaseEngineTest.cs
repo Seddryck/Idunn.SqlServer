@@ -46,9 +46,11 @@ namespace Idunn.SqlServer.Core.Testing.Unit.Template.StringTemplate
         [Test]
         public void Execute_Principals_CorrectlyRendered()
         {
-            var principals = new List<Principal>();
-            principals.Add(new Principal("MyUser", new List<Database>() { new Database("db-001", "sql-001", null, null) }));
-            principals.Add(new Principal("MyCopy", new List<Database>() { new Database("db-001", "sql-001", null, null) }));
+            var principals = new List<Principal>()
+            {
+                new Principal("MyUser", new List<Database>() { new Database("db-001", "sql-001", null, null) }),
+                new Principal("MyCopy", new List<Database>() { new Database("db-001", "sql-001", null, null) }),
+            };
             var engine = new TestableStringTemplateEngine();
 
             var templateInfo = new TemplateInfo()

@@ -17,12 +17,14 @@ namespace Idunn.SqlServer.Core.Parser.XmlParser
         public void Initialize(IParserContainer container)
         {
             rootParser = new RootParser(container);
-            
-            parsers = new Dictionary<Type, object>();
-            parsers.Add(typeof(Principal), new PrincipalParser(container));
-            parsers.Add(typeof(Database), new DatabaseParser(container));
-            parsers.Add(typeof(Permission), new PermissionParser(container));
-            parsers.Add(typeof(Securable), new SecurableParser(container));
+
+            parsers = new Dictionary<Type, object>()
+            {
+                [typeof(Principal)] = new PrincipalParser(container),
+                [typeof(Database)] = new DatabaseParser(container),
+                [typeof(Permission)] = new PermissionParser(container),
+                [typeof(Securable)] = new SecurableParser(container),
+            };
         }
 
         public IReadOnlyDictionary<Type, object> GetParsers()

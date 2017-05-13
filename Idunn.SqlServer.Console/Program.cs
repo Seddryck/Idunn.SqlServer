@@ -8,6 +8,7 @@ using System.IO;
 using Idunn.SqlServer.Console.Parser;
 using Idunn.SqlServer.Console.Model;
 using Idunn.SqlServer.Console.Template;
+using Idunn.SqlServer.Console.Execution;
 
 namespace Idunn.SqlServer.Console
 {
@@ -33,39 +34,57 @@ namespace Idunn.SqlServer.Console
             container.Initialize(Path.GetExtension(options.Source));
 
             var modelFactory = new ModelFactory();
-
             var collection = modelFactory.Instantiate(options.Source, container);
-            
-            //Render the template
-            foreach (var item in collection)
-            {
-                Type type = item.GetType().GetGenericArguments()[0];
 
+            var types = collection.Select(o => o.GetType()).Distinct();
+
+            //Render the template
+            foreach (var type in types)
+            {
                 var templateContainer = new TemplateContainer();
+                templateContainer.Initialize();
                 var templateFactory = templateContainer.Retrieve(type);
                 var engine = templateFactory.Instantiate(string.Empty, false, options.Template);
-                var text = engine.Execute(item as IEnumerable<object>);
+
+                var objects = collection.Where(o => o.GetType() == type);
+                var text = engine.Execute(objects);
                 File.WriteAllText(options.Destination, text);
             }
-            
 
             return 0;
         }
 
         protected static int Execute(ExecuteOptions options)
         {
-            //System.Console.WriteLine($"Execute permissions' checks based on {options.Source}.");
-            ////Parse the model
-            //var modelFactory = new ModelFactory();
-            //var principals = modelFactory.Instantiate(options.Source);
-            //if (principals.Count() > 1 && !string.IsNullOrEmpty(options.Principal))
-            //    throw new ArgumentException($"The file {options.Source} contains more than one principal. You cannot specify the principal on the command line arguments.");
-            //else
-            //    principals.ElementAt(0).Name = options.Principal;
-            ////Execute the checks
-            //var executionEngineFactory = new ExecutionEngineFactory();
-            //var engine = executionEngineFactory.Instantiate(System.Console.Out, options.Output);
-            //engine.Execute(principals);
+            System.Console.WriteLine($"Execute permissions' checks based on {options.Source}.");
+            //Parse the model
+            var container = new ParserContainer();
+            container.Initialize(Path.GetExtension(options.Source));
+
+            var modelFactory = new ModelFactory();
+            var collection = modelFactory.Instantiate(options.Source, container);
+
+            var types = collection.Select(o => o.GetType()).Distinct();
+
+            //Execute the checks
+            foreach (var type in types)
+            {
+                var executorContainer = new ExecutorContainer();
+                executorContainer.Initialize();
+                var executorFactory = executorContainer.Retrieve(type);
+
+                var textWriters = new List<TextWriter>()
+                {
+                    System.Console.Out,
+                };
+                if (!string.IsNullOrEmpty(options.Output))
+                    textWriters.Add(new StreamWriter(options.Output));
+
+                var engine = executorFactory.Instantiate(textWriters);
+
+                var objects = collection.Where(o => o.GetType() == type);
+                engine.Execute(objects);
+            }
 
             return 0;
         }
