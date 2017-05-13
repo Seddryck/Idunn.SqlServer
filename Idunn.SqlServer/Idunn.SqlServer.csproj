@@ -91,7 +91,6 @@
     <Compile Include="Parser\XmlParser\SecurableParser.cs" />
     <Compile Include="Parser\XmlParser\DatabaseParser.cs" />
     <Compile Include="Parser\XmlParser\PrincipalParser.cs" />
-    <Compile Include="Parser\XmlParser\XmlReaderFactory.cs" />
     <Compile Include="Parser\YamlParser\DatabaseParser.cs" />
     <Compile Include="Parser\YamlParser\ParserRegister.cs" />
     <Compile Include="Parser\YamlParser\PermissionParser.cs" />

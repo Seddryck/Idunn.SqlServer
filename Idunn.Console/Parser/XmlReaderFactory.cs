@@ -9,9 +9,9 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace Idunn.SqlServer.Parser.XmlParser
+namespace Idunn.Console.Parser.XmlParser
 {
-    class XmlReaderFactory
+    public class XmlReaderFactory
     {
         public XmlReader Instantiate(StreamReader reader)
         {
