@@ -67,6 +67,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="YamlDotNet, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.4.2.0\lib\net35\YamlDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExecuteOptions.cs" />
@@ -76,6 +79,8 @@
     <Compile Include="Execution\IExecutorFactory.cs" />
     <Compile Include="Execution\IExecutorEngine.cs" />
     <Compile Include="Model\ModelFactory.cs" />
+    <Compile Include="Parser\AbstractYamlParser.cs" />
+    <Compile Include="Parser\AbstractXmlParser.cs" />
     <Compile Include="Parser\FileParserAttribute.cs" />
     <Compile Include="GenerateOptions.cs" />
     <Compile Include="Parser\IRootParser.cs" />

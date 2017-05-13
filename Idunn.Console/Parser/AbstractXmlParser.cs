@@ -1,18 +1,17 @@
-﻿using Idunn.Console.Parser;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Idunn.SqlServer.Parser.XmlParser
+namespace Idunn.Console.Parser
 {
-    public abstract class AbstractParser<T> : IParser<T>
+    public abstract class AbstractXmlParser<T> : IParser<T>
     {
         protected readonly IParserContainer container;
 
-        public AbstractParser(IParserContainer container)
+        public AbstractXmlParser(IParserContainer container)
         {
             this.container = container;
         }

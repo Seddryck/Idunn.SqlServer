@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace Idunn.SqlServer.Parser.XmlParser
 {
-    class SecurableParser : AbstractParser<Securable>
+    class SecurableParser : AbstractXmlParser<Securable>
     {
         public SecurableParser(IParserContainer container)
             : base(container)

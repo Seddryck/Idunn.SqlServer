@@ -85,7 +85,6 @@
     <Compile Include="Model\Securable.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="Model\Principal.cs" />
-    <Compile Include="Parser\XmlParser\AbstractParser.cs" />
     <Compile Include="Parser\XmlParser\RootParser.cs" />
     <Compile Include="Parser\XmlParser\ParserRegister.cs" />
     <Compile Include="Parser\XmlParser\PermissionParser.cs" />
@@ -93,7 +92,6 @@
     <Compile Include="Parser\XmlParser\DatabaseParser.cs" />
     <Compile Include="Parser\XmlParser\PrincipalParser.cs" />
     <Compile Include="Parser\XmlParser\XmlReaderFactory.cs" />
-    <Compile Include="Parser\YamlParser\AbstractParser.cs" />
     <Compile Include="Parser\YamlParser\DatabaseParser.cs" />
     <Compile Include="Parser\YamlParser\ParserRegister.cs" />
     <Compile Include="Parser\YamlParser\PermissionParser.cs" />

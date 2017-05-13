@@ -9,7 +9,7 @@ using YamlDotNet.RepresentationModel;
 
 namespace Idunn.SqlServer.Parser.YamlParser
 {
-    class PrincipalParser : AbstractParser<Principal>
+    class PrincipalParser : AbstractYamlParser<Principal>
     {
         public PrincipalParser(IParserContainer container)
             : base(container)

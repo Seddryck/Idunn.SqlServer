@@ -10,7 +10,7 @@ using System.Xml;
 
 namespace Idunn.SqlServer.Parser.XmlParser
 {
-    class DatabaseParser : AbstractParser<Database>
+    class DatabaseParser : AbstractXmlParser<Database>
     {
         public DatabaseParser(IParserContainer container)
             : base(container)

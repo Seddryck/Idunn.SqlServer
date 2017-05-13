@@ -10,7 +10,7 @@ using YamlDotNet.RepresentationModel;
 
 namespace Idunn.SqlServer.Parser.YamlParser
 {
-    class DatabaseParser : AbstractParser<Database>
+    class DatabaseParser : AbstractYamlParser<Database>
     {
         public DatabaseParser(IParserContainer container)
             : base(container)

@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace Idunn.SqlServer.Parser.XmlParser
 {
-    class PrincipalParser : AbstractParser<Principal>
+    class PrincipalParser : AbstractXmlParser<Principal>
     {
         public PrincipalParser(IParserContainer container)
             : base(container)

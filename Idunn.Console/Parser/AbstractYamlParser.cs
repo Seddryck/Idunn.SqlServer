@@ -1,5 +1,4 @@
-﻿using Idunn.Console.Parser;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +6,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using YamlDotNet.RepresentationModel;
 
-namespace Idunn.SqlServer.Parser.YamlParser
+namespace Idunn.Console.Parser
 {
-    public abstract class AbstractParser<T> : IParser<T>
+    public abstract class AbstractYamlParser<T> : IParser<T>
     {
         protected readonly IParserContainer container;
 
-        public AbstractParser(IParserContainer container)
+        public AbstractYamlParser(IParserContainer container)
         {
             this.container = container;
         }
