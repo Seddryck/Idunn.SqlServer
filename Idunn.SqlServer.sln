@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.SqlServer.Core", "Idunn.SqlServer.Core\Idunn.SqlServer.Core.csproj", "{A64CAF12-84AB-4C2C-8563-D072AD4E8901}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.SqlServer", "Idunn.SqlServer\Idunn.SqlServer.csproj", "{A64CAF12-84AB-4C2C-8563-D072AD4E8901}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{1A4BCFD5-C1E2-49BE-A911-B0503D891E79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.SqlServer.Core.Testing.Unit", "Idunn.SqlServer.Core.Testing.Unit\Idunn.SqlServer.Core.Testing.Unit.csproj", "{FE0DF2FE-B684-492A-926E-1838713A28C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.SqlServer.Testing.Unit", "Idunn.SqlServer.Testing.Unit\Idunn.SqlServer.Testing.Unit.csproj", "{FE0DF2FE-B684-492A-926E-1838713A28C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.SqlServer.Console", "Idunn.SqlServer.Console\Idunn.SqlServer.Console.csproj", "{5BCB31EE-E724-4805-B5F5-D0DA1C81A650}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.Console", "Idunn.Console\Idunn.Console.csproj", "{5BCB31EE-E724-4805-B5F5-D0DA1C81A650}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.SqlServer.Testing.Acceptance", "Idunn.SqlServer.Testing.Acceptance\Idunn.SqlServer.Testing.Acceptance.csproj", "{7ABD9873-F168-47C6-B8EE-3F9BEDD748BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.Testing.Acceptance", "Idunn.Testing.Acceptance\Idunn.Testing.Acceptance.csproj", "{7ABD9873-F168-47C6-B8EE-3F9BEDD748BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
