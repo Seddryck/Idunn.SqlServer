@@ -58,6 +58,10 @@
       <Project>{5bcb31ee-e724-4805-b5f5-d0da1c81a650}</Project>
       <Name>Idunn.Console</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Idunn.FileShare\Idunn.FileShare.csproj">
+      <Project>{d7c587ad-f0fe-4028-8a2d-96799c99070c}</Project>
+      <Name>Idunn.FileShare</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Idunn.SqlServer\Idunn.SqlServer.csproj">
       <Project>{a64caf12-84ab-4c2c-8563-d072ad4e8901}</Project>
       <Name>Idunn.SqlServer</Name>

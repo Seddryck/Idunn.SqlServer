@@ -17,12 +17,10 @@ namespace Idunn.Console.Model
             if (!File.Exists(filename))
                 throw new ArgumentException(string.Format("No file has been found at the location '{0}'.", filename));
             var collection = new List<object>();
-            using (var stream = File.OpenRead(filename))
+            foreach (var rootParser in container.RootParsers)
             {
-                foreach (var rootParser in container.RootParsers)
-                {
+                using (var stream = File.OpenRead(filename))
                     collection.AddRange(((IRootParser)rootParser).Parse(stream));
-                }
             }
 
             return collection;
