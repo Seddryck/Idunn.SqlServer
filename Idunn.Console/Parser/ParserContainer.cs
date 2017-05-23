@@ -11,10 +11,13 @@ namespace Idunn.Console.Parser
     public class ParserContainer : IParserContainer
     {
         private Dictionary<Type, object> parsers = new Dictionary<Type, object>();
-        private IList<IRootParser> rootParsers = new List<IRootParser>();
+        private IList<object> rootParsers = new List<object>();
 
         public void Initialize(string extension)
         {
+            var factory = new EngineParserFactory();
+            var engine = factory.Instantiate(extension);
+
             var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var files = Directory.GetFiles(currentPath, "Idunn.*.Idunn.SqlServer.dll");
             var factories = new List<object>();
@@ -22,11 +25,11 @@ namespace Idunn.Console.Parser
             {
                 var assembly = Assembly.LoadFile(file);
                 var potentials = assembly.GetTypes().Where(t => typeof(IParserRegister).IsAssignableFrom(t));
-                if (potentials.Count() > 0)
+                if (potentials.Count() == 1)
                 {
-                    var effective = potentials.Single(t => t.GetCustomAttribute<FileParserAttribute>().Extension == extension);
+                    var effective = potentials.Single();
                     var register = effective.GetConstructor(new Type[0]).Invoke(new object[0]);
-                    Initialize(register as IParserRegister);
+                    Initialize(register as IParserRegister, engine);
                 }
                 else
                 {
@@ -37,22 +40,28 @@ namespace Idunn.Console.Parser
             }
         }
 
-        public void Initialize(IParserRegister register)
+        public void Initialize(IParserRegister register, string extension)
         {
-            register.Initialize(this);
+            var factory = new EngineParserFactory();
+            Initialize(register, factory.Instantiate(extension));
+        }
+
+        public void Initialize(IParserRegister register, IEngineParser engine)
+        {
+            register.Initialize(this, engine);
             rootParsers.Add(register.GetRootParser());
             foreach (var item in register.GetParsers())
                 parsers.Add(item.Key, item.Value);              
         }
 
-        public IParser<T> Retrieve<T>()
+        public IParser Retrieve<T>()
         {
             if (parsers.Keys.Contains(typeof(T)))
-                return parsers[typeof(T)] as IParser<T>;
+                return parsers[typeof(T)] as IParser;
             throw new ArgumentException();
         }
 
-        public IEnumerable<IRootParser> RootParsers
+        public IEnumerable<object> RootParsers
         {
             get { return rootParsers;}
         }

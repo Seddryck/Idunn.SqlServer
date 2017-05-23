@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FE0DF2FE-B684-492A-926E-1838713A28C1}</ProjectGuid>
+    <ProjectGuid>{A0539DBC-F1F7-43EE-8865-3D06FAE2AC7C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Idunn.SqlServer.Testing.Unit</RootNamespace>
-    <AssemblyName>Idunn.SqlServer.Testing.Unit</AssemblyName>
+    <RootNamespace>Idunn.FileShare.Testing.Unit</RootNamespace>
+    <AssemblyName>Idunn.FileShare.Testing.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,16 +51,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <EmbeddedResource Include="Parser\Resources\Sample - Condensated.yml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Idunn.Console\Idunn.Console.csproj">
       <Project>{5bcb31ee-e724-4805-b5f5-d0da1c81a650}</Project>
       <Name>Idunn.Console</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Idunn.SqlServer\Idunn.SqlServer.csproj">
-      <Project>{a64caf12-84ab-4c2c-8563-d072ad4e8901}</Project>
-      <Name>Idunn.SqlServer</Name>
+    <ProjectReference Include="..\Idunn.FileShare\Idunn.FileShare.csproj">
+      <Project>{d7c587ad-f0fe-4028-8a2d-96799c99070c}</Project>
+      <Name>Idunn.FileShare</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Parser\Resources\Multiple.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Parser\Resources\Multiple.yml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Parser\Resources\Sample.yml" />

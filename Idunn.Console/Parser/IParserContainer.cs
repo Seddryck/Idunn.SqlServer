@@ -8,7 +8,7 @@ namespace Idunn.Console.Parser
 {
     public interface IParserContainer
     {
-        IParser<T> Retrieve<T>();
-        void Initialize(IParserRegister register);
+        IParser Retrieve<T>();
+        void Initialize(IParserRegister register, IEngineParser engine);
     }
 }

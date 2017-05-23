@@ -21,7 +21,7 @@ namespace Idunn.Console.Model
             {
                 foreach (var rootParser in container.RootParsers)
                 {
-                    collection.AddRange(rootParser.Parse(stream));
+                    collection.AddRange(((IRootParser)rootParser).Parse(stream));
                 }
             }
 

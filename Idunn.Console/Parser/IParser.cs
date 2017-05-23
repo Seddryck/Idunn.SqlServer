@@ -7,8 +7,8 @@ using System.Xml;
 
 namespace Idunn.Console.Parser
 {
-    public interface IParser<T>
+    public interface IParser
     {
-        T Parse(object node);
+        object Parse(object node);
     }
 }

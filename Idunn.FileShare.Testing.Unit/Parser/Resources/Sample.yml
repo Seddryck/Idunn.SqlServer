@@ -1,0 +1,18 @@
+﻿account:
+  name: COLUMBIA\\Cedri
+  folders:
+    - path: c:\folder-001
+      permission: LIST
+      files:
+        - name: file-001.txt
+          permissions:
+            - WRITE
+            - READ
+        - name: file-002.txt
+          permission: FULL
+    - path: c:\folder-002
+      files:
+        - name: file-003.txt
+          permission: MODIFY
+        - name: file-004.txt
+          permission: EXECUTE

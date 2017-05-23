@@ -12,4 +12,8 @@ namespace Idunn.Console.Parser
     {
         IEnumerable<object> Parse(Stream stream);
     }
+    public interface IRootParser<T>
+    {
+        IEnumerable<T> Parse(Stream stream);
+    }
 }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Idunn.Console.Parser
 {
-
     public interface IParserRegister
     {
-        void Initialize(IParserContainer container);
+        void Initialize(IParserContainer container, IEngineParser engine);
         IReadOnlyDictionary<Type, object> GetParsers();
         IRootParser GetRootParser();
     }
+
 }
