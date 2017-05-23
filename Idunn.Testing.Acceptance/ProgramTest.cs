@@ -21,6 +21,9 @@ namespace Idunn.Testing.Acceptance
             var source = ResourceOnDisk.CreatePhysicalFile($"Sample.{extension}", $"Idunn.Testing.Acceptance.Resources.Sample.{extension}");
             var destination = Path.ChangeExtension(source, $".{extension}.sql");
 
+            if (File.Exists(destination))
+                File.Delete(destination);
+
             var args = new List<string>()
             {
                 "generate",
@@ -41,6 +44,9 @@ namespace Idunn.Testing.Acceptance
             var source = ResourceOnDisk.CreatePhysicalFile($"Sample.{extension}", $"Idunn.Testing.Acceptance.Resources.Sample.{extension}");
             var template = ResourceOnDisk.CreatePhysicalFile("MarkdownTemplate.md", "Idunn.Testing.Acceptance.Resources.MarkdownTemplate.md");
             var destination = Path.ChangeExtension(source, $".{extension}.output.md");
+
+            if (File.Exists(destination))
+                File.Delete(destination);
 
             var args = new List<string>()
             {
@@ -66,6 +72,9 @@ namespace Idunn.Testing.Acceptance
         {
             var source = ResourceOnDisk.CreatePhysicalFile($"AdventureWorksDW2012.{extension}", $"Idunn.Testing.Acceptance.Resources.AdventureWorksDW2012.{extension}");
             var destination = Path.ChangeExtension(source, $".{extension}.sql");
+
+            if (File.Exists(destination))
+                File.Delete(destination);
 
             var args = new List<string>()
             {

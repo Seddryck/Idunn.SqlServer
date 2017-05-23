@@ -19,7 +19,7 @@ namespace Idunn.Console.Parser
             var engine = factory.Instantiate(extension);
 
             var currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var files = Directory.GetFiles(currentPath, "Idunn.*.Idunn.SqlServer.dll");
+            var files = Directory.GetFiles(currentPath, "Idunn.*.dll");
             var factories = new List<object>();
             foreach (var file in files)
             {
