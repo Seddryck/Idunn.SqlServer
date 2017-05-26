@@ -13,9 +13,14 @@ namespace Idunn.Console.Template.StringTemplate
     {
         public const string RootTemplateName = "root";
 
-        protected TemplateGroup Initialize()
+        protected virtual TemplateGroup Initialize()
         {
-            var group = new TemplateGroup('$', '$');
+            return Initialize('$', '$');
+        }
+
+        protected TemplateGroup Initialize(char start, char stop)
+        {
+            var group = new TemplateGroup(start, stop);
             group.RegisterRenderer(typeof(string), new StringRenderer());
             return group;
         }
