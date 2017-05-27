@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.SqlServer", "Idunn.SqlServer\Idunn.SqlServer.csproj", "{A64CAF12-84AB-4C2C-8563-D072AD4E8901}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idunn.SqlServer.Testing.Unit", "Idunn.SqlServer.Testing.Unit\Idunn.SqlServer.Testing.Unit.csproj", "{FE0DF2FE-B684-492A-926E-1838713A28C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
