@@ -14,7 +14,7 @@
     <copyright>Copyright 2017</copyright>
     <tags>SqlServer Security Deployment</tags>
     <dependencies>
-      <dependency id="Idunn" version="0.9"/>
+      <dependency id="Idunn" version="*"/>
     </dependencies>
   </metadata>
 </package>
