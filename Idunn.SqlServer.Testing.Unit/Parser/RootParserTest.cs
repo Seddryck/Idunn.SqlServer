@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Reflection;
-using Idunn.Console.Parser;
+using Idunn.Core.Parser;
 using Idunn.SqlServer.Parser;
 
 namespace Idunn.SqlServer.Testing.Unit.Parser

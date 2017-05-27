@@ -1,4 +1,4 @@
-﻿using Idunn.Console.Parser;
+﻿using Idunn.Core.Parser;
 using Idunn.SqlServer.Model;
 using Idunn.SqlServer.Parser;
 using System;

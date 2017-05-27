@@ -1,4 +1,4 @@
-﻿using Idunn.Console.Execution;
+﻿using Idunn.Core.Execution;
 using Idunn.SqlServer.Model;
 using Idunn.SqlServer.Template.StringTemplate;
 using Microsoft.SqlServer.Management.Smo;

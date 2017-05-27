@@ -1,4 +1,4 @@
-﻿using Idunn.Console.Template.StringTemplate;
+﻿using Idunn.Core.Template.StringTemplate;
 using Idunn.SqlServer.Model;
 using Idunn.SqlServer.Template.StringTemplate;
 using NUnit.Framework;

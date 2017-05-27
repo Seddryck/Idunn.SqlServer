@@ -1,4 +1,4 @@
-﻿using Idunn.Console.Execution;
+﻿using Idunn.Core.Execution;
 using Idunn.SqlServer.Model;
 using System;
 using System.Collections.Generic;
