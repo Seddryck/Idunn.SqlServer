@@ -13,5 +13,8 @@
     <releaseNotes>First release of Idunn.SqlServer</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>SqlServer Security Deployment</tags>
+    <dependencies>
+      <dependency id="Idunn" version="0.9"/>
+    </dependencies>
   </metadata>
 </package>

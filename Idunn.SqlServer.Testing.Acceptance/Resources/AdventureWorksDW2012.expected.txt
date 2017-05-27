@@ -1,5 +1,0 @@
-﻿Start execution ...
-  Success: the permission CONNECT was granted on DATABASE::AdventureWorksDW2012 for principal dbo
-  Success: the permission SELECT was granted on schema::dbo for principal dbo
-  Success: the permission UPDATE was granted on schema::dbo for principal dbo
-End of execution.

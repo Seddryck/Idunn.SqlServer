@@ -6,13 +6,13 @@ if (Test-Path $lib)
 }
 new-item -Path $lib -ItemType directory
 new-item -Path $root\.nupkg -ItemType directory -force
-Copy-Item $root\Idunn.SqlServer.Console\bin\Debug\* $lib
+Copy-Item $root\Idunn.SqlServer\bin\Debug\Idunn.SqlServer.* $lib
 
 $version = $env:GitVersion_NuGetVersion
 if ([string]::IsNullOrEmpty($version))
 {
     Write-Warning "No version found in environment variables, using version of the dll"
-    $version = (Get-Item $lib\Idunn.SqlServer.Core.dll).VersionInfo.FileVersion
+    $version = (Get-Item $lib\Idunn.SqlServer.dll).VersionInfo.FileVersion
 }
 Write-Host "Setting .nuspec version tag to $version"
 
