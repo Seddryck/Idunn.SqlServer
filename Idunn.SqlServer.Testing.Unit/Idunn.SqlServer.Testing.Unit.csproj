@@ -36,11 +36,8 @@
     <Reference Include="Antlr4.StringTemplate, Version=4.0.7.0, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\StringTemplate4.4.0.7.2-alpha001\lib\net35-client\Antlr4.StringTemplate.dll</HintPath>
     </Reference>
-    <Reference Include="Idunn, Version=0.9.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Idunn.0.9.2-beta\lib\45\Idunn.exe</HintPath>
-    </Reference>
-    <Reference Include="Idunn.Core, Version=0.9.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Idunn.0.9.2-beta\lib\45\Idunn.Core.dll</HintPath>
+    <Reference Include="Idunn.Core, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Idunn.Core.0.9.3-beta\lib\45\Idunn.Core.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
